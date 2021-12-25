@@ -131,7 +131,7 @@ function cContrasena(string $text, string $campo, array &$errores) {
 
 /* Función que recoge las opciones elegidas por el usuario y comprueba que están dentro de las opciones posibles dentro del array en libs/config.php */
 function cCheckbox(string $campo, array &$listaPosibles, array &$errores) {     
-    
+
     $valido = FALSE;
 
     if(empty($_REQUEST[$campo])) {
@@ -162,35 +162,35 @@ function cFecha(string $text, string $campo, array &$errores, string $formato = 
     * Permite separador / o -
     */
        
-   $arrayFecha = preg_split("/[\/-]/", $text);
+    $arrayFecha = preg_split("/[\/-]/", $text);
    
-   $regex = '/(\d{4})/';    
-   if(! preg_match($regex, $arrayFecha[2]) || $arrayFecha[2] < 1950 || $arrayFecha[2] > 2021 ) {
-       $errores[$campo] = "El año es incorrecto";
-       return FALSE;
-   }
-   
-   if (count($arrayFecha) == 3) {
-       switch ($formato) {
-           case ("0"):
-               return checkdate($arrayFecha[1], $arrayFecha[0], $arrayFecha[2]);
-               break;
-               
-           case ("1"):
-               return checkdate($arrayFecha[0], $arrayFecha[1], $arrayFecha[2]);
-               break;
-               
-           case ("2"):
-               return checkdate($arrayFecha[1], $arrayFecha[2], $arrayFecha[0]);
-               break;
-           default:
-               $errores[$campo] = "El $campo tiene errores";
-               return FALSE;
-       }
-   } else {
-       $errores[$campo] = "El $campo tiene errores";
-       return FALSE;
-   }
+    $regex = '/(\d{4})/';    
+    if(! preg_match($regex, $arrayFecha[2]) || $arrayFecha[2] < 1950 || $arrayFecha[2] > 2021 ) {
+        $errores[$campo] = "El año es incorrecto";
+        return FALSE;
+    }
+
+    if (count($arrayFecha) == 3) {
+        switch ($formato) {
+            case ("0"):
+                return checkdate($arrayFecha[1], $arrayFecha[0], $arrayFecha[2]);
+                break;
+                
+            case ("1"):
+                return checkdate($arrayFecha[0], $arrayFecha[1], $arrayFecha[2]);
+                break;
+                
+            case ("2"):
+                return checkdate($arrayFecha[1], $arrayFecha[2], $arrayFecha[0]);
+                break;
+            default:
+                $errores[$campo] = "El $campo tiene errores";
+                return FALSE;
+        }
+    } else {
+        $errores[$campo] = "El $campo tiene errores";
+        return FALSE;
+    }
 }
 
 /* Función para comprobar el Textarea del formulario */
@@ -202,6 +202,81 @@ function cTextarea(string $text, string $campo, array &$errores, int $max = 300,
     }
     $errores[$campo] = "El $campo permite de $min hasta $max caracteres";
     return FALSE;
+}
+
+/* Función que comprueba la foto enviada por el usuario. Comprueba que tiene una extensión válida dentro de las posibles (especificadas en libs/config.php). Si supera la comprobación sube la foto al directorio del usuario. */
+function cFotoPerfil(string $campo, string $usuario, string $path, array &$errores) {
+    
+    $directorioTemp = $_FILES[$campo]['tmp_name'];
+    $extension = $_FILES[$campo]['type'];
+    $nombreArchivo = $usuario . ".jpg";    
+
+    /* Si el usuario no ha subido ninguna foto, le asignamos una foto por defecto */
+    if($_FILES[$campo]['error'] = 4) {
+        $imagePath = "img/usuario_sin_foto.jpg";
+        $newPath = $path . "/" . $nombreArchivo;
+
+        if ( ! is_file($newPath)) {
+            if (! copy($imagePath , $newPath)) {
+                return FALSE;
+             }
+             else { 
+                 return TRUE;
+             }
+        }        
+    }     
+}
+
+function cFotoPerfil2(string $campo, string $usuario, string $path, string $rutaFinal, array $extensionesValidas, array &$errores) {
+    
+    $directorioTemp = $_FILES[$campo]['tmp_name'];
+    $extension = $_FILES[$campo]['type'];
+    $nombreArchivo = $usuario . ".jpg";    
+
+    /* Si hay un error difernete a 0 y 4 es porque no se ha podido subir la imagen */
+    if ($_FILES[$campo]['error'] != 0 && $_FILES[$campo]['error'] != 4) {
+        $errores[$campo] = "No se ha podido subir el fichero. Inténtalo de nuevo.";
+        return FALSE;     
+    } elseif ($_FILES[$campo]['error'] = 4 && $_FILES[$campo]['size'] == 0) {
+        /* Si el usuario no ha subido ninguna foto, le asignamos una foto por defecto */
+        $imagePath = "img/usuario_sin_foto.jpg";
+        $newPath = $path . "/" . $nombreArchivo;
+
+        if ( ! is_file($newPath)) {
+            if (! copy($imagePath , $newPath)) {
+                return FALSE;
+             }
+             else { 
+                 return TRUE;
+             }
+        }
+    } else {
+        /* El usuario ha subido una foto y hay que analizarla */
+        $directorioTemp = $_FILES[$campo]['tmp_name'];    
+        $nombreArchivo = $_FILES[$campo]['name'];
+        $nombrePartes = explode(".", $nombreArchivo); 
+        //Necesitamos la extensión de la foto que ha subido el usuario, por eso nos quedamos con el segundo item del array que es la extensión
+        $nombreFinal = $usuario . "."  . $nombrePartes[1];
+        
+        // Comprobamos la extensión del archivo dentro de la lista que hemos definido al principio
+        if (! in_array($extension, $extensionesValidas)) {
+            $errores[] = "La extensión del archivo no es válida o no se ha subido ningún archivo";
+            return FALSE;
+        }
+
+        if (is_file($rutaFinal . $nombreArchivo)) {
+            echo "<br>Ya existe una foto de perfil para el usuario.";
+        } else {
+            if (move_uploaded_file($directorioTemp, $rutaFinal . $nombreFinal)) {
+                // En este caso devolvemos sólo el nombre del fichero sin la ruta
+                echo "<br>Se ha subido la foto de perfil del usuario";
+                return TRUE;
+            } else {
+                $errores[] = "Error: No se puede mover el fichero a su destino";
+                return FALSE;
+            }
+        }
+    }    
 }
 
 ?>
