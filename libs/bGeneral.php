@@ -78,22 +78,55 @@ function recogeCheck(string $text) {
 /* Función que comprueba una cadena de texto con los parámetros introducidos en la función */
 function cTexto(string $text, string $campo, array &$errores, int $max = 30, int $min = 1, string $espacios = " ", string $case = "i", bool $numeros = FALSE) {
     /* No es case sensitive
-      Admite letras y números
-      Permite un espacio entre palabras
-      Cadenas de longitud entre 1 y 30
+       Admite letras y números
+       Permite un espacio entre palabras
+       Cadenas de longitud entre 1 y 30
     */
     /* Si permitimos números entrará en el IF y sino permiten números iremos al ELSE */
     if ($numeros) {
         if ((preg_match("/[A-Za-zÑñ0-9$espacios]{" . $min . "," . $max . "}$/u$case", sinTildes($text)))) {
             return TRUE;
+        } else {
+            $errores[$campo] = "El $campo no es válido.";
+         return FALSE;
         }
     } else {
         if ((preg_match("/[A-Za-zÑñ$espacios]{" . $min . "," . $max . "}$/u$case", sinTildes($text)))) {
             return TRUE;
+        } else {
+            $errores[$campo] = "El $campo no es válido.";
+            return FALSE;
         }
     }    
-    $errores[$campo] = "El $campo sólo puede contener letras y números.";
-    return FALSE;
+}
+
+/* Función que comprueba si el nombre del usuario es válido */
+function cUsuario(string $text, string $campo, array &$errores) {
+    /* No es case sensitive
+       Debe empezar por una letra o el carácter _
+       Admite letras, números y los caracteres &$_
+       Cadenas de longitud entre 1 y 12
+    */
+    if ((preg_match("/^[A-Za-zÑñ_]{1}[A-Za-zÑñ0-9\$\\_&]{1,11}$/ui", sinTildes($text)))) {        
+        return TRUE;
+    } else {
+        $errores[$campo] = "El $campo no es válido.";
+        return FALSE;
+    }    
+}
+
+/* Función que comprueba si la contraseña es válida */
+function cContrasena(string $text, string $campo, array &$errores) {
+    /* No es case sensitive
+       Admite letras, números y los caracteres &$_\/-+
+       Cadenas de longitud entre 1 y 15
+    */
+    if ((preg_match("/^[A-Za-zÑñ0-9\/\\\+\$\-\*_]{1,15}$/ui", sinTildes($text)))) {        
+        return TRUE;
+    } else {
+        $errores[$campo] = "La $campo no es válida.";
+        return FALSE;
+    }    
 }
 
 /* Función que recoge las opciones elegidas por el usuario y comprueba que están dentro de las opciones posibles dentro del array en libs/config.php */

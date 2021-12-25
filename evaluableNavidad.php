@@ -5,7 +5,7 @@
     
     cabecera("Evaluable Navidad.");
     $errores = [];
-    //print_r($_REQUEST);
+    print_r($_REQUEST);
     
     
     if (! isset($_REQUEST['bAceptar'])) {
@@ -18,8 +18,8 @@
         // Recogemos la información que ha pasado el usuario
         $nombre = recoge("nombre", FALSE);
         $apellidos = recoge("apellidos", FALSE);
-        //NombreUsuario
-        //Contraseña
+        $usuario = recoge("usuario", FALSE);
+        $contrasena = recoge("contrasena", FALSE);
         $localidad = recoge("localidad", FALSE);
         $provincia = recoge("provincia", FALSE);
         $fechaNacimiento = recoge("fechaNacimiento", FALSE);
@@ -36,8 +36,13 @@
             $error = TRUE;
         }
 
-        //FALTA NombreUsuario
-        //FALTA Contraseña
+        if (! cUsuario($usuario, "usuario", $errores)) {
+            $error = TRUE;
+        }
+
+        if (! cContrasena($contrasena, "contrasena", $errores)) {
+            $error = TRUE;
+        }
 
         if (! cTexto($localidad, "localidad", $errores, 50, 0, " ", )) {
             $error = TRUE;
