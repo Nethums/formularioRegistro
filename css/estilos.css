@@ -1,44 +1,4 @@
-form {
-    padding: 10px 30px 20px 15px;
-    width:450px;
-    border: 1px solid black;
-}
+@import url("form.css");
+@import url("fonts.css");
 
-label+input, label+div {
-    margin-top: 10px;
-}
 
-input {
-    display:block;
-    margin-bottom: 10px;
-}
-
-input[type=checkbox] {
-    display:inline;
-}
-
-input[type=text], textarea {
-    width: 100%;
-    padding: 5px;
-}
-
-input[type=date] {
-    padding: 5px;
-}
-
-input[type=submit] {
-    margin-top:20px;
-    padding:5px;
-    width:150px;
-}
-
-.opcionesCheck {
-	display: flex;
-	gap: 0.2rem;
-	flex-wrap: wrap;
-    max-width: 400px;
-}
-
-textarea {
-    resize: none;
-}

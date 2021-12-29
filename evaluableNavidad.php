@@ -1,11 +1,12 @@
 <?php
-    require("libs/bGeneral.php");
-    require("libs/config.php");
+    require_once("libs/bGeneral.php");
+    require_once("libs/dataBase.php");
+    require_once("libs/config.php");
     
     
-    cabecera("Evaluable Navidad.");
+    cabecera("Evaluable Navidad");
     $errores = [];
-    //print_r($_REQUEST);
+    print_r($_REQUEST);
     
     
     if (! isset($_REQUEST['bAceptar'])) {
@@ -13,13 +14,12 @@
         require ("forms/form.php");
     } else {
         // Inicializamos el error a FALSE y si a la hora de validar los datos hay error, salimos del bucle
-        $error = FALSE;
-                
+        $error = FALSE;                
         // Recogemos la información que ha pasado el usuario
         $nombre = recoge("nombre", FALSE);
         $apellidos = recoge("apellidos", FALSE);
-        //NombreUsuario
-        //Contraseña
+        $usuario = recoge("usuario", FALSE);
+        $contrasena = recoge("contrasena", FALSE);
         $localidad = recoge("localidad", FALSE);
         $provincia = recoge("provincia", FALSE);
         $fechaNacimiento = recoge("fechaNacimiento", FALSE);
@@ -36,8 +36,13 @@
             $error = TRUE;
         }
 
-        //FALTA NombreUsuario
-        //FALTA Contraseña
+        if (! cUsuario($usuario, "usuario", $errores)) {
+            $error = TRUE;
+        }
+
+        if (! cContrasena($contrasena, "contrasena", $errores)) {
+            $error = TRUE;
+        }
 
         if (! cTexto($localidad, "localidad", $errores, 50, 0, " ", )) {
             $error = TRUE;
@@ -66,11 +71,37 @@
             print_r($_REQUEST);
             echo "</pre>";
             echo "<br><br><br><b>FORMULARIO PROCESADO CORRECTAMENTE</b>";
+
+            /* Comprobamos si existía un directorio con el nombre del usuario y se crea si no existe */
+            $path = "directorioUsuarios/$usuario";
+            if (!file_exists($path)) {
+                mkdir($path, 0777, true);
+                echo "<br>El directorio del usuario " . $usuario . " ha sido creado correctamente.";
+            } else {
+                echo "<br>El directorio del usuario " . $usuario . " ya existía.";
+            }    
+            
+            /* Prueba de que el usuario no sube una foto y copiamos la imagen por defecto y cambiamos el nombre de la foto por la del usuario */
+            if(cFotoPerfil2("fotoPerfil", $usuario, $path, $rutaFinal, $extensionesValidas, $errores)) {
+                echo "<br>Foto copiada con éxito.";
+            } else {
+                echo "<br>No se ha copiado nada.";
+            }
+
+            echo "<pre>";
+            print_r($_FILES);
+            echo "</pre>";
+
         } else {
             //Sacamos por pantalla los errores ocurridos y el formulario para que lo reenvie
             echo "<pre>";
             print_r($_REQUEST);
+            echo "</pre>";     
+            
+            echo "<pre>";
+            print_r($_FILES);
             echo "</pre>";
+            
             print_r($errores);   
             echo "<br><br><br>";
             require ("forms/form.php"); 
