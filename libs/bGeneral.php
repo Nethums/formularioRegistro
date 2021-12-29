@@ -24,10 +24,8 @@ function pie() {
 
 function generarCheckbox(array &$opciones, string $name) {
     foreach($opciones as $opcion){
-        //echo "<input type='checkbox' name='".$name." value=$opcion>$opcion</input>";
         echo "<input type='checkbox' name='" . $name . "[]' value='" . $opcion . "'>". $opcion . ".<br>";
     }
-    //echo "<input type='checkbox' name='".$name."[]' value='" . $opciones[$i] . "'>". $opciones[$i] . ".<br>";
 }
 
 function sinTildes($text) {
@@ -87,14 +85,14 @@ function cTexto(string $text, string $campo, array &$errores, int $max = 30, int
         if ((preg_match("/[A-Za-zÑñ0-9$espacios]{" . $min . "," . $max . "}$/u$case", sinTildes($text)))) {
             return TRUE;
         } else {
-            $errores[$campo] = "El $campo no es válido.";
+            $errores[$campo] = "El campo $campo no es válido.";
          return FALSE;
         }
     } else {
         if ((preg_match("/[A-Za-zÑñ$espacios]{" . $min . "," . $max . "}$/u$case", sinTildes($text)))) {
             return TRUE;
         } else {
-            $errores[$campo] = "El $campo no es válido.";
+            $errores[$campo] = "El campo $campo no es válido.";
             return FALSE;
         }
     }    
