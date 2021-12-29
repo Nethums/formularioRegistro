@@ -1,4 +1,64 @@
-@import url("form.css");
+@import url("forms.css");
 @import url("fonts.css");
 
 
+/* Contenedor general de formularios y galería */
+div.container {
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    height: 100vh;
+    width: 1000px;
+    margin: 0 auto;
+}
+
+/* Clase error usuario en Index */
+p.errorLogin {
+    color: red;
+    font-weight: bold;
+    padding-top: 10px;
+}
+
+/* Div container-galeria */
+div.container.galeria {
+    padding-top: 50px;
+    justify-content: flex-start;
+}
+
+div.galeria {
+    display: flex;
+    align-content: flex-start;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    padding: 5px;
+}
+
+/* Imágenes de la galería */
+img {
+    width: 150px;
+    height: 200px;
+    object-fit: cover;  /* Propiedad para que la imágen no se deforme al cambiar las dimensiones */
+    margin: 5px;
+}
+
+/* Botón formulario de la página errorRegistro.php */
+a.botonFormulario {
+    margin-top: 20px;
+    box-shadow: inset 0px 1px 0px 0px #ffffff;
+	background: linear-gradient(to bottom, #f9f9f9 5%, #e9e9e9 100%);
+	background-color: #f9f9f9;
+	border-radius: 2px;
+	border: 1px solid rgb(118, 118, 118);
+	display: inline-block;
+	cursor: pointer;
+	color: #000;
+	padding: 6px 24px;
+	text-decoration: none;
+	text-shadow: 0px 1px 0px #ffffff;
+}
+
+a.botonFormulario:hover {
+    font-weight: 400;
+    background: #ececec;
+}
