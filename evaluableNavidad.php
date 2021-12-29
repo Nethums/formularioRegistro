@@ -1,9 +1,10 @@
 <?php
-    require("libs/bGeneral.php");
-    require("libs/config.php");
+    require_once("libs/bGeneral.php");
+    require_once("libs/dataBase.php");
+    require_once("libs/config.php");
     
     
-    cabecera("Evaluable Navidad.");
+    cabecera("Evaluable Navidad");
     $errores = [];
     print_r($_REQUEST);
     
@@ -13,8 +14,7 @@
         require ("forms/form.php");
     } else {
         // Inicializamos el error a FALSE y si a la hora de validar los datos hay error, salimos del bucle
-        $error = FALSE;
-                
+        $error = FALSE;                
         // Recogemos la información que ha pasado el usuario
         $nombre = recoge("nombre", FALSE);
         $apellidos = recoge("apellidos", FALSE);
