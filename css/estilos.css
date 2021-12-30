@@ -20,6 +20,15 @@ p.errorLogin {
     padding-top: 10px;
 }
 
+/* Clase error subirImagenes.php */
+p.errorImagen {
+    color: red;
+    font-weight: bold;
+    padding-top: 10px;
+    text-align: center;
+    margin-top: -120px;
+}
+
 /* Div container-galeria */
 div.container.galeria {
     padding-top: 50px;

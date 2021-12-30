@@ -60,3 +60,12 @@ input[type=reset] {
     font-size: 0.9rem;
 }
 
+/* FormularioSubirImagenes */
+form.subirFoto select {
+    padding: 3px 5px;
+    margin-top: 10px;
+}
+
+form.subirFoto textarea {
+    margin: 20px 0;
+}

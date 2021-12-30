@@ -152,6 +152,24 @@ function cCheckbox(string $campo, array &$listaPosibles, array &$errores) {
     }
 }
 
+/* Función que recoge la opción del Select seleccionada por el usuario y comprueba si está en la lista de las posibles opciones. Este array se pasa como parámetro */
+function cSelect(string $campo, array &$listaPosibles, array &$errores) {     
+
+    $valido = FALSE;
+
+    if (in_array($_REQUEST[$campo], $listaPosibles)) {
+        $valido = TRUE;
+    } 
+
+    if($valido) {
+        return TRUE;
+    } else {
+        $errores[$campo] = "El valor del ". $campo . " no es válido.";
+        return FALSE;
+    }    
+}
+
+
 /*  */
 function cFecha(string $text, string $campo, array &$errores, string $formato = "0") {
     /* Función que valida fechas.
@@ -276,5 +294,45 @@ function cFotoPerfil2(string $campo, string $usuario, string $path, string $ruta
         }
     }    
 }
+
+/* Función para el formularioSubirImagenes. Dependiendo de la opción que haya elegido, la imagen se guardará en una carpeta diferente */
+function cSubirImagen(string $campo, string $usuario, string $directorioUsuarios, array $extensionesValidas, array &$errores) {
+
+    $directorioTemp = $_FILES[$campo]['tmp_name'];
+    $extension = $_FILES[$campo]['type'];
+    $nombreArchivo = $_FILES[$campo]['name'];    
+
+    if($_FILES[$campo]['error'] == 0 && $_FILES[$campo]['size'] > 0) {
+        /* El usuario ha subido una foto y hay que analizarla */        
+        $nombrePartes = explode(".", $nombreArchivo); 
+        //Necesitamos la extensión de la foto que ha subido el usuario, por eso nos quedamos con el segundo item del array que es la extensión
+        $extensionImagen = $nombrePartes[1];
+
+        // Falta analizar qué pasa si la foto ya está subida, habría que añadirle time()
+        
+        // Comprobamos la extensión del archivo dentro de la lista que hemos definido al principio
+        if (! in_array($extension, $extensionesValidas)) {
+            $errores[] = "La extensión del archivo no es válida o no se ha subido ningún archivo";
+            return FALSE;
+        }
+
+        if (is_file("../" .$directorioUsuarios . $usuario .'/' . $nombreArchivo)) {
+            // Si existe una imagen con el mismo nombre le añadimos al final lo que devuelve time() precedido de un _
+            $nombrePartes = explode(".", $nombreArchivo);
+            $nombreFinal = $nombrePartes[0] . "_" . time() . "." . $nombrePartes[1];
+            $nombreArchivo = $nombreFinal;
+        }
+
+        $rutaUsuario = "../" .$directorioUsuarios . $usuario .'/' . $nombreArchivo;
+        if (move_uploaded_file($directorioTemp, $rutaUsuario)) {
+            // En este caso devolvemos sólo el nombre del fichero sin la ruta
+            return TRUE;
+        } else {
+            $errores[] = "Error: No se puede mover el fichero a su destino";
+            return FALSE;
+        }
+    }
+}
+
 
 ?>
