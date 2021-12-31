@@ -170,7 +170,7 @@ function cSelect(string $campo, array &$listaPosibles, array &$errores) {
 }
 
 
-/*  */
+/* Función para comprobar que la fecha introducida por el usuario es válida y al mismo tiempo devuelve la fecha ordenada para la base de datos aaaa/mm/dd */
 function cFecha(string $text, string $campo, array &$errores, string $formato = "0") {
     /* Función que valida fechas.
     * Por defecto en formato dd-mm-aaa. Caso 1 mm/dd/aaaa. Caso 2 aaaa/mm/dd
@@ -220,42 +220,20 @@ function cTextarea(string $text, string $campo, array &$errores, int $max = 300,
     return FALSE;
 }
 
-/* Función que comprueba la foto enviada por el usuario. Comprueba que tiene una extensión válida dentro de las posibles (especificadas en libs/config.php). Si supera la comprobación sube la foto al directorio del usuario. */
-function cFotoPerfil(string $campo, string $usuario, string $path, array &$errores) {
+/* Función que comprueba la foto enviada por el usuario. Comprueba que tiene una extensión válida dentro de las posibles (especificadas en libs/config.php). Si supera la comprobación sube la foto a la carpeta fotosPerfil */
+function cFotoPerfil(string $campo, string $usuario, string $path, string $directorioFotosPerfil, array $extensionesValidas, array &$errores) {
     
     $directorioTemp = $_FILES[$campo]['tmp_name'];
     $extension = $_FILES[$campo]['type'];
     $nombreArchivo = $usuario . ".jpg";    
 
-    /* Si el usuario no ha subido ninguna foto, le asignamos una foto por defecto */
-    if($_FILES[$campo]['error'] = 4) {
-        $imagePath = "img/usuario_sin_foto.jpg";
-        $newPath = $path . "/" . $nombreArchivo;
-
-        if ( ! is_file($newPath)) {
-            if (! copy($imagePath , $newPath)) {
-                return FALSE;
-             }
-             else { 
-                 return TRUE;
-             }
-        }        
-    }     
-}
-
-function cFotoPerfil2(string $campo, string $usuario, string $path, string $rutaFinal, array $extensionesValidas, array &$errores) {
-    
-    $directorioTemp = $_FILES[$campo]['tmp_name'];
-    $extension = $_FILES[$campo]['type'];
-    $nombreArchivo = $usuario . ".jpg";    
-
-    /* Si hay un error difernete a 0 y 4 es porque no se ha podido subir la imagen */
+    /* Si hay un error diferente a 0 y 4 es porque no se ha podido subir la imagen */
     if ($_FILES[$campo]['error'] != 0 && $_FILES[$campo]['error'] != 4) {
         $errores[$campo] = "No se ha podido subir el fichero. Inténtalo de nuevo.";
         return FALSE;     
     } elseif ($_FILES[$campo]['error'] = 4 && $_FILES[$campo]['size'] == 0) {
         /* Si el usuario no ha subido ninguna foto, le asignamos una foto por defecto */
-        $imagePath = "img/usuario_sin_foto.jpg";
+        $imagePath = "../img/usuario_sin_foto.jpg";
         $newPath = $path . "/" . $nombreArchivo;
 
         if ( ! is_file($newPath)) {
@@ -280,10 +258,11 @@ function cFotoPerfil2(string $campo, string $usuario, string $path, string $ruta
             return FALSE;
         }
 
-        if (is_file($rutaFinal . $nombreArchivo)) {
+        $rutaUsuario = "../" . $directorioFotosPerfil . $nombreFinal;
+        if (is_file($rutaUsuario)) {
             echo "<br>Ya existe una foto de perfil para el usuario.";
         } else {
-            if (move_uploaded_file($directorioTemp, $rutaFinal . $nombreFinal)) {
+            if (move_uploaded_file($directorioTemp, $rutaUsuario)) {
                 // En este caso devolvemos sólo el nombre del fichero sin la ruta
                 echo "<br>Se ha subido la foto de perfil del usuario";
                 return TRUE;
