@@ -1,10 +1,15 @@
 <?php
-try {
-        $db = new PDO('mysql:host=localhost;dbname=evaluable_2021', "root", "");
+
+    $db_hostname = "localhost";
+    $db_nombre = "evaluable_2021";
+    $db_usuario = "root"; /* Es root ya que es un ejercicio de prueba. */
+    $db_clave = "";
+
+    try {
+        $pdo = new PDO('mysql:host=' . $db_hostname . ';dbname=' . $db_nombre . '', $db_usuario, $db_clave);
         // Realiza el enlace con la BD en utf-8
-        $db->exec("set names utf8");
-        $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-               
+        $pdo->exec("set names utf8");
+        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);               
     } catch (PDOException $e) {
         echo "<p>Error: No puede conectarse con la base de datos.</p>\n";
         echo "<p>Error: " . $e->getMessage();

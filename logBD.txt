@@ -1,0 +1,12 @@
+SQLSTATE[HY093]: Invalid parameter number: number of bound variables does not match number of tokens##Código: HY093  0.51873500 1640890250
+SQLSTATE[HY093]: Invalid parameter number: number of bound variables does not match number of tokens##Código: HY093  0.14524200 1640891267
+SQLSTATE[HY093]: Invalid parameter number: number of bound variables does not match number of tokens##Código: HY093  0.00362400 1640891435
+SQLSTATE[HY093]: Invalid parameter number: number of bound variables does not match number of tokens##Código: HY093  0.01793700 1640891762
+SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry 'XXXXXX' for key 'uk_user'##Código: 23000  0.82870800 1640893692
+SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry 'XXXXXX' for key 'uk_user'##Código: 23000  0.61796900 1640893733
+SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry 'f1rssd' for key 'uk_user'##Código: 23000  0.78881000 1640896092
+SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry 'f1rssd' for key 'uk_user'##Código: 23000  0.73040200 1640896862
+SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry 'f1rssd' for key 'uk_user'##Código: 23000  0.89009700 1640896930
+SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry 'BVBVBVB' for key 'uk_user'##Código: 23000  0.67623900 1640981643
+SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry 'EAAEEAEEE' for key 'uk_user'##Código: 23000  0.79721500 1640982175
+SQLSTATE[23000]: Integrity constraint violation: 1048 Column 'fPerfil' cannot be null##Código: 23000  0.42187700 1640991622
