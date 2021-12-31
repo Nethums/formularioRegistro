@@ -71,8 +71,22 @@
             
             /* Conectamos con la base de datos e introducimos el nuevo usuario en la base de datos */
 
-            $fPerfil = $directorioFotosPerfil . "/" . $usuario; 
+            //Necesitamos la extensión de la foto que ha subido el usuario
+            if ($nombreArchivo1 = $_FILES['fotoPerfil']['size'] > 0 ) {
+                $nombreArchivo1 = $_FILES['fotoPerfil']['name'];
+                $nombrePartes = explode(".", $nombreArchivo1);
+                $extensionImagen = $nombrePartes[1];
+                $fPerfil = $directorioFotosPerfil . $usuario . "." . $nombrePartes[1]; 
+            }
 
+            // Si el usuario no ha subido ninguna foto tomamos la extensión .jpg porque es la extensión de la foto por defecto en img/
+            if ($nombreArchivo1 = $_FILES['fotoPerfil']['size'] == 0 ) {
+                $fPerfil = $directorioFotosPerfil . $usuario . ".jpg";
+            }
+
+            
+
+            /* Conectamos con la base de datos e introducimos el nuevo usuario en la base de datos */
             try {
                 include ('../libs/bConecta.php');
                 // Preparamos consulta
