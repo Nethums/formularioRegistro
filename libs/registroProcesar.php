@@ -71,7 +71,7 @@
             
             /* Conectamos con la base de datos e introducimos el nuevo usuario en la base de datos */
 
-            $fPerfil = "fotosPerfil/NNNNNN";  //CAMBIAR
+            $fPerfil = $directorioFotosPerfil . "/" . $usuario; 
 
             try {
                 include ('../libs/bConecta.php');
@@ -105,7 +105,7 @@
             
             /* Comprobamos si existía un directorio con el nombre del usuario y se crea si no existe */
 
-            $path = "../" . $directorioUsuarios . "/" .$usuario;
+            $path = "../" . $directorioUsuarios . $usuario;
             if (!file_exists($path)) {
                 mkdir($path, 0777, true);
                 echo "<br>El directorio del usuario " . $usuario . " ha sido creado correctamente.";
@@ -114,17 +114,12 @@
             }   
             
             /* Prueba de que el usuario no sube una foto y copiamos la imagen por defecto y cambiamos el nombre de la foto por la del usuario */
-
-            if(cFotoPerfil("fotoPerfil", $usuario, $path, $directorioFotosPerfil, $extensionesValidas, $errores)) {
+            $fotoPerfilUsuario = "../" . $directorioFotosPerfil;
+            if(cFotoPerfil("fotoPerfil", $usuario, $fotoPerfilUsuario, $directorioFotosPerfil, $extensionesValidas, $errores)) {
                 echo "<br>Foto copiada con éxito.";
             } else {
                 echo "<br>No se ha copiado nada.";
             }
-
-            echo "<pre>";
-            print_r($_FILES);
-            echo "</pre>";
-
         } else {
             //Sacamos por pantalla los errores ocurridos y el formulario para que lo reenvie
             /*
