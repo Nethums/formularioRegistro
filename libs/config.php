@@ -1,5 +1,5 @@
 <?php
-    $directorioUsuarios = "usuarios/";
+    $directorioUsuarios = "imagenes/";
     $directorioFotosPerfil = "fotosPerfil/";
     $rutaPublica = "imagenes/";
     $extensionesValidas = ["image/jpeg", "image/jpg", "image/png", "image/gif"];

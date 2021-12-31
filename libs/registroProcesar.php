@@ -105,7 +105,7 @@
             
             /* Comprobamos si existía un directorio con el nombre del usuario y se crea si no existe */
 
-            $path = "../usuarios/$usuario";
+            $path = "../" . $directorioUsuarios . "/" .$usuario;
             if (!file_exists($path)) {
                 mkdir($path, 0777, true);
                 echo "<br>El directorio del usuario " . $usuario . " ha sido creado correctamente.";
