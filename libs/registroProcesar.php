@@ -2,8 +2,6 @@
     require_once("bGeneral.php");
     require_once("config.php");
     
-    
-    cabecera("Evaluable Navidad");
     $errores = [];    
     
     if (! isset($_REQUEST['bAceptar'])) {
@@ -61,16 +59,8 @@
             $error = TRUE;
         }
 
-
         // Si no hay ningún error pasamos a procesar la imagen del usuario. Si hay algún error, volvemos a pedir el formulario        
         if (! $error) {
-            /*echo "<pre>";
-            print_r($_REQUEST);
-            echo "</pre>";            
-            echo "<br><br><br><b>FORMULARIO PROCESADO CORRECTAMENTE</b>";*/
-            
-            /* Conectamos con la base de datos e introducimos el nuevo usuario en la base de datos */
-
             //Necesitamos la extensión de la foto que ha subido el usuario
             if ($nombreArchivo1 = $_FILES['fotoPerfil']['size'] > 0 ) {
                 $nombreArchivo1 = $_FILES['fotoPerfil']['name'];
@@ -82,9 +72,7 @@
             // Si el usuario no ha subido ninguna foto tomamos la extensión .jpg porque es la extensión de la foto por defecto en img/
             if ($nombreArchivo1 = $_FILES['fotoPerfil']['size'] == 0 ) {
                 $fPerfil = $directorioFotosPerfil . $usuario . ".jpg";
-            }
-
-            
+            }            
 
             /* Conectamos con la base de datos e introducimos el nuevo usuario en la base de datos */
             try {
@@ -115,7 +103,6 @@
                 // guardamos en ·errores el error que queremos mostrar a los usuarios
                 $errores['datos'] = "Ha habido un error <br>";
             }
-
             
             /* Comprobamos si existía un directorio con el nombre del usuario y se crea si no existe */
 
@@ -135,22 +122,6 @@
                 echo "<br>No se ha copiado nada.";
             }
         } else {
-            //Sacamos por pantalla los errores ocurridos y el formulario para que lo reenvie
-            /*
-            echo "<pre>";
-            print_r($_REQUEST);
-            echo "</pre>";     
-            
-            echo "<pre>";
-            print_r($_FILES);
-            echo "</pre>";
-            
-            echo "<pre>";
-            print_r($errores);
-            echo "</pre>";  
-            echo "<br><br><br>";
-            */
-
             /* Recogemos los mensajes del array $errores y los guardamos en variables para enviarlos por el método get. En la página errorRegistro.php recogeremos los valores del array $errores enviado por $_GET  */
             $errorNombre = $errores["nombre"];
             $errorApellidos = $errores["apellidos"];
@@ -159,15 +130,7 @@
             $errorFechaNacimiento = $errores["fechaNacimiento"];
             $errorAficiones = $errores["aficiones"];
             
-            /*
-            header('Location: ../pages/errorRegistro.php?errores[]='.$errorNombre.'&errores[]='.$errorApellidos.'&errores[]='.$errorUsuario.'&errores[]='.$errorContrasena.'&errores[]='.$errorFechaNacimiento.'&errores[]='.$errorAficiones);*/
-
-            echo "<pre>";
-            print_r($_REQUEST);
-            echo "</pre>";  
-            print_r($errores);
+            header('Location: ../pages/errorRegistro.php?errores[]='.$errorNombre.'&errores[]='.$errorApellidos.'&errores[]='.$errorUsuario.'&errores[]='.$errorContrasena.'&errores[]='.$errorFechaNacimiento.'&errores[]='.$errorAficiones);
         }
-    }
-
-    pie();    
+    }  
 ?>
