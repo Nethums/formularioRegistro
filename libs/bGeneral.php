@@ -178,35 +178,35 @@ function cFecha(string $text, string $campo, array &$errores, string $formato = 
     * Permite separador / o -
     */
        
-    $arrayFecha = preg_split("/[\/-]/", $text);
+   $arrayFecha = preg_split("/[\/-]/", $text);
    
-    $regex = '/(\d{4})/';    
-    if(! preg_match($regex, $arrayFecha[2]) || $arrayFecha[2] < 1950 || $arrayFecha[2] > 2021 ) {
-        $errores[$campo] = "El año es incorrecto";
-        return FALSE;
-    }
-
-    if (count($arrayFecha) == 3) {
-        switch ($formato) {
-            case ("0"):
-                return checkdate($arrayFecha[1], $arrayFecha[0], $arrayFecha[2]);
-                break;
-                
-            case ("1"):
-                return checkdate($arrayFecha[0], $arrayFecha[1], $arrayFecha[2]);
-                break;
-                
-            case ("2"):
-                return checkdate($arrayFecha[1], $arrayFecha[2], $arrayFecha[0]);
-                break;
-            default:
-                $errores[$campo] = "El $campo tiene errores";
-                return FALSE;
-        }
-    } else {
-        $errores[$campo] = "El $campo tiene errores";
-        return FALSE;
-    }
+   $regex = '/(\d{4})/';    
+   if(! preg_match($regex, $arrayFecha[2]) || $arrayFecha[2] < 1700 || $arrayFecha[2] > 2021 ) {
+       $errores[$campo] = "El año es incorrecto";
+       return FALSE;
+   }
+   
+   if (count($arrayFecha) == 3) {
+       switch ($formato) {
+           case ("0"):
+               return checkdate($arrayFecha[1], $arrayFecha[0], $arrayFecha[2]);
+               break;
+               
+           case ("1"):
+               return checkdate($arrayFecha[0], $arrayFecha[1], $arrayFecha[2]);
+               break;
+               
+           case ("2"):
+               return checkdate($arrayFecha[1], $arrayFecha[2], $arrayFecha[0]);
+               break;
+           default:
+               $errores[$campo] = "El $campo tiene errores";
+               return FALSE;
+       }
+   } else {
+       $errores[$campo] = "El $campo tiene errores";
+       return FALSE;
+   }
 }
 
 /* Función para comprobar el Textarea del formulario */

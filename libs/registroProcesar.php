@@ -49,7 +49,7 @@
             $error = TRUE;
         }
 
-        if (! cFecha($fechaNacimiento, "fechaNacimiento", $errores, "0")) {
+        if (! cFecha($fechaNacimiento, "fechaNacimiento", $errores)) {
             $error = TRUE;
         }
 
@@ -64,25 +64,54 @@
 
         // Si no hay ningún error pasamos a procesar la imagen del usuario. Si hay algún error, volvemos a pedir el formulario        
         if (! $error) {
-            echo "<pre>";
+            /*echo "<pre>";
             print_r($_REQUEST);
-            echo "</pre>";
-            echo "<br><br><br><b>FORMULARIO PROCESADO CORRECTAMENTE</b>";
+            echo "</pre>";            
+            echo "<br><br><br><b>FORMULARIO PROCESADO CORRECTAMENTE</b>";*/
+            
+            /* Conectamos con la base de datos e introducimos el nuevo usuario en la base de datos */
 
+            $fPerfil = "fotosPerfil/NNNNNN";  //CAMBIAR
+
+            try {
+                include ('../libs/bConecta.php');
+                // Preparamos consulta
+                $stmt = $pdo->prepare("INSERT INTO usuarios (user, pass, nombre, apellidos, localidad, provincia, fNacimiento, bio, fPerfil) values (?, ?, ?, ?, ?, ?, ?, ?, ?)");
+                
+                // Bind - Vinculamos cada variable a un parámetro de la sentencia $stmt por orden
+                $stmt->bindParam(1, $usuario);
+                $stmt->bindParam(2, $contrasena);
+                $stmt->bindParam(3, $nombre);
+                $stmt->bindParam(4, $apellidos);
+                $stmt->bindParam(5, $localidad);
+                $stmt->bindParam(6, $provincia);
+                $stmt->bindParam(7, $fecha);
+                $stmt->bindParam(8, $biografia);
+                $stmt->bindParam(9, $fPerfil);
+
+                // Excecute - Ejecutamos la sentencia. Nos de vuelve true o false
+                if ($stmt->execute()) {                    
+                    echo "El id del último usuario dado de alta es: " . $pdo->lastInsertId();
+                } else
+                    echo "No se ha insertado ningún registro";
+            } catch (PDOException $e) {
+
+                // En este caso guardamos los errores en un archivo de errores log
+                error_log($e->getMessage() . "##Código: " . $e->getCode() . "  " . microtime() . PHP_EOL, 3, "../logBD.txt");
+                // guardamos en ·errores el error que queremos mostrar a los usuarios
+                $errores['datos'] = "Ha habido un error <br>";
+            }
+
+            
             /* Comprobamos si existía un directorio con el nombre del usuario y se crea si no existe */
 
-
-/*   DESCOMENTAR PARA DIRECTORIO
-            $path = "directorioUsuarios/$usuario";
+            $path = "../usuarios/$usuario";
             if (!file_exists($path)) {
                 mkdir($path, 0777, true);
                 echo "<br>El directorio del usuario " . $usuario . " ha sido creado correctamente.";
             } else {
                 echo "<br>El directorio del usuario " . $usuario . " ya existía.";
-            }    
- */
-
-
+            }   
             
             /* Prueba de que el usuario no sube una foto y copiamos la imagen por defecto y cambiamos el nombre de la foto por la del usuario */
 /*
@@ -122,7 +151,13 @@
             $errorFechaNacimiento = $errores["fechaNacimiento"];
             $errorAficiones = $errores["aficiones"];
             
-            header('Location: ../pages/errorRegistro.php?errores[]='.$errorNombre.'&errores[]='.$errorApellidos.'&errores[]='.$errorUsuario.'&errores[]='.$errorContrasena.'&errores[]='.$errorFechaNacimiento.'&errores[]='.$errorAficiones);
+            /*
+            header('Location: ../pages/errorRegistro.php?errores[]='.$errorNombre.'&errores[]='.$errorApellidos.'&errores[]='.$errorUsuario.'&errores[]='.$errorContrasena.'&errores[]='.$errorFechaNacimiento.'&errores[]='.$errorAficiones);*/
+
+            echo "<pre>";
+            print_r($_REQUEST);
+            echo "</pre>";  
+            print_r($errores);
         }
     }
 
