@@ -93,9 +93,204 @@
 
                 // Excecute - Ejecutamos la sentencia. Nos de vuelve true o false
                 if ($stmt->execute()) {                    
-                    echo "El id del último usuario dado de alta es: " . $pdo->lastInsertId();
-                } else
+                    echo "El id del último usuario dado de alta es: " . $pdo->lastInsertId();     
+                    $userIdGuardado = $pdo->lastInsertId(); //Guardamos el id del usuario    
+                } else {
                     echo "No se ha insertado ningún registro";
+                }                  
+            } catch (PDOException $e) {
+                // En este caso guardamos los errores en un archivo de errores log
+                error_log($e->getMessage() . "##Código: " . $e->getCode() . "  " . microtime() . PHP_EOL, 3, "../logBD.txt");
+                // guardamos en ·errores el error que queremos mostrar a los usuarios
+                $errores['datos'] = "Ha habido un error <br>";
+            }
+
+            try {
+                include ('../libs/bConecta.php');
+                // Preparamos consulta        
+                $aficionesUSuario = $_REQUEST["aficiones"];
+                if (in_array("Videojuegos", $aficionesUSuario)) {
+                    $stmt1 = $pdo->prepare("INSERT INTO aficionesuser (idUser, idAficion) values (?, ?)");
+
+                    // Bind - Vinculamos cada variable a un parámetro de la sentencia $stmt por orden
+
+                    $idUser = $userIdGuardado;
+                    $idAficion = "1"; //Videojuegos es la afición 1
+
+                    $stmt1->bindParam(1, $idUser);
+                    $stmt1->bindParam(2, $idAficion);
+
+                    if ($stmt1->execute()) {
+                        echo "Se ha insertado la afición Videojuegos.<br>";
+                    } else {
+                        echo "No se han podido insertar las aficiones.<br>";
+                    } 
+                }   
+                
+                if (in_array("Series", $aficionesUSuario)) {
+                    $stmt2 = $pdo->prepare("INSERT INTO aficionesuser (idUser, idAficion) values (?, ?)");
+
+                    // Bind - Vinculamos cada variable a un parámetro de la sentencia $stmt por orden
+
+                    $idUser = $userIdGuardado;
+                    $idAficion = "2"; //Series es la afición 2
+
+                    $stmt2->bindParam(1, $idUser);
+                    $stmt2->bindParam(2, $idAficion);
+
+                    if ($stmt2->execute()) {
+                        echo "Se ha insertado la afición Series.<br>";
+                    } else {
+                        echo "No se han podido insertar las aficiones.<br>";
+                    } 
+                }   
+
+                if (in_array("Deportes", $aficionesUSuario)) {
+                    $stmt3 = $pdo->prepare("INSERT INTO aficionesuser (idUser, idAficion) values (?, ?)");
+
+                    // Bind - Vinculamos cada variable a un parámetro de la sentencia $stmt por orden
+
+                    $idUser = $userIdGuardado;
+                    $idAficion = "3"; //Deportes es la afición 3
+
+                    $stmt3->bindParam(1, $idUser);
+                    $stmt3->bindParam(2, $idAficion);
+
+                    if ($stmt3->execute()) {
+                        echo "Se ha insertado la afición Deportes.<br>";
+                    } else {
+                        echo "No se han podido insertar las aficiones.<br>";
+                    } 
+                }   
+
+                if (in_array("Leer", $aficionesUSuario)) {
+                    $stmt4 = $pdo->prepare("INSERT INTO aficionesuser (idUser, idAficion) values (?, ?)");
+
+                    // Bind - Vinculamos cada variable a un parámetro de la sentencia $stmt por orden
+
+                    $idUser = $userIdGuardado;
+                    $idAficion = "4"; //Leer es la afición 4
+
+                    $stmt4->bindParam(1, $idUser);
+                    $stmt4->bindParam(2, $idAficion);
+
+                    if ($stmt4->execute()) {
+                        echo "Se ha insertado la afición Leer.<br>";
+                    } else {
+                        echo "No se han podido insertar las aficiones.<br>";
+                    } 
+                }                
+                
+                if (in_array("Bailar", $aficionesUSuario)) {
+                    $stmt5 = $pdo->prepare("INSERT INTO aficionesuser (idUser, idAficion) values (?, ?)");
+
+                    // Bind - Vinculamos cada variable a un parámetro de la sentencia $stmt por orden
+
+                    $idUser = $userIdGuardado;
+                    $idAficion = "5"; //Bailar es la afición 2
+
+                    $stmt5->bindParam(1, $idUser);
+                    $stmt5->bindParam(2, $idAficion);
+
+                    if ($stmt5->execute()) {
+                        echo "Se ha insertado la afición Bailar.<br>";
+                    } else {
+                        echo "No se han podido insertar las aficiones.<br>";
+                    } 
+                }                   
+                
+                if (in_array("Senderismo", $aficionesUSuario)) {
+                    $stmt6 = $pdo->prepare("INSERT INTO aficionesuser (idUser, idAficion) values (?, ?)");
+
+                    // Bind - Vinculamos cada variable a un parámetro de la sentencia $stmt por orden
+
+                    $idUser = $userIdGuardado;
+                    $idAficion = "6"; //Senderismo es la afición 6
+
+                    $stmt6->bindParam(1, $idUser);
+                    $stmt6->bindParam(2, $idAficion);
+
+                    if ($stmt6->execute()) {
+                        echo "Se ha insertado la afición Senderismo.<br>";
+                    } else {
+                        echo "No se han podido insertar las aficiones.<br>";
+                    } 
+                }                  
+                
+
+                if (in_array("Viajar", $aficionesUSuario)) {
+                    $stmt7 = $pdo->prepare("INSERT INTO aficionesuser (idUser, idAficion) values (?, ?)");
+
+                    // Bind - Vinculamos cada variable a un parámetro de la sentencia $stmt por orden
+
+                    $idUser = $userIdGuardado;
+                    $idAficion = "7"; //Viajar es la afición 7
+
+                    $stmt7->bindParam(1, $idUser);
+                    $stmt7->bindParam(2, $idAficion);
+
+                    if ($stmt7->execute()) {
+                        echo "Se ha insertado la afición Viajar.<br>";
+                    } else {
+                        echo "No se han podido insertar las aficiones.<br>";
+                    } 
+                }   
+                
+                if (in_array("Cocinar", $aficionesUSuario)) {
+                    $stmt8 = $pdo->prepare("INSERT INTO aficionesuser (idUser, idAficion) values (?, ?)");
+
+                    // Bind - Vinculamos cada variable a un parámetro de la sentencia $stmt por orden
+
+                    $idUser = $userIdGuardado;
+                    $idAficion = "8"; //Cine es la afición 8
+
+                    $stmt8->bindParam(1, $idUser);
+                    $stmt8->bindParam(2, $idAficion);
+
+                    if ($stmt8->execute()) {
+                        echo "Se ha insertado la afición Cine.<br>";
+                    } else {
+                        echo "No se han podido insertar las aficiones.<br>";
+                    } 
+                }                  
+                
+                if (in_array("Cine", $aficionesUSuario)) {
+                    $stmt9 = $pdo->prepare("INSERT INTO aficionesuser (idUser, idAficion) values (?, ?)");
+
+                    // Bind - Vinculamos cada variable a un parámetro de la sentencia $stmt por orden
+
+                    $idUser = $userIdGuardado;
+                    $idAficion = "9"; //Cine es la afición 9
+
+                    $stmt9->bindParam(1, $idUser);
+                    $stmt9->bindParam(2, $idAficion);
+
+                    if ($stmt9->execute()) {
+                        echo "Se ha insertado la afición Cocinar.<br>";
+                    } else {
+                        echo "No se han podido insertar las aficiones.<br>";
+                    } 
+                }   
+                
+                if (in_array("Música", $aficionesUSuario)) {
+                    $stmt10 = $pdo->prepare("INSERT INTO aficionesuser (idUser, idAficion) values (?, ?)");
+
+                    // Bind - Vinculamos cada variable a un parámetro de la sentencia $stmt por orden
+
+                    $idUser = $userIdGuardado;
+                    $idAficion = "10"; //Música es la afición 10
+
+                    $stmt10->bindParam(1, $idUser);
+                    $stmt10->bindParam(2, $idAficion);
+
+                    if ($stmt10->execute()) {
+                        echo "Se ha insertado la afición Música.<br>";
+                    } else {
+                        echo "No se han podido insertar las aficiones.<br>";
+                    } 
+                }   
+                
+                
             } catch (PDOException $e) {
 
                 // En este caso guardamos los errores en un archivo de errores log
@@ -121,6 +316,7 @@
             } else {
                 echo "<br>No se ha copiado nada.";
             }
+            header('Location: ../index.php?registro=ok');
         } else {
             /* Recogemos los mensajes del array $errores y los guardamos en variables para enviarlos por el método get. En la página errorRegistro.php recogeremos los valores del array $errores enviado por $_GET  */
             $errorNombre = $errores["nombre"];

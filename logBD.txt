@@ -10,3 +10,20 @@ SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry 'f1rssd' f
 SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry 'BVBVBVB' for key 'uk_user'##Código: 23000  0.67623900 1640981643
 SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry 'EAAEEAEEE' for key 'uk_user'##Código: 23000  0.79721500 1640982175
 SQLSTATE[23000]: Integrity constraint violation: 1048 Column 'fPerfil' cannot be null##Código: 23000  0.42187700 1640991622
+SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry 'd7fas09d' for key 'uk_user'##Código: 23000  0.74856400 1641146595
+SQLSTATE[23000]: Integrity constraint violation: 1048 Column 'idUser' cannot be null##Código: 23000  0.76466100 1641147159
+SQLSTATE[23000]: Integrity constraint violation: 1048 Column 'idUser' cannot be null##Código: 23000  0.90481100 1641147259
+SQLSTATE[23000]: Integrity constraint violation: 1048 Column 'idUser' cannot be null##Código: 23000  0.90899100 1641147259
+SQLSTATE[23000]: Integrity constraint violation: 1048 Column 'idUser' cannot be null##Código: 23000  0.21238700 1641147394
+SQLSTATE[23000]: Integrity constraint violation: 1048 Column 'idUser' cannot be null##Código: 23000  0.22404100 1641147486
+SQLSTATE[23000]: Integrity constraint violation: 1048 Column 'idUser' cannot be null##Código: 23000  0.47644000 1641147533
+SQLSTATE[23000]: Integrity constraint violation: 1048 Column 'idUser' cannot be null##Código: 23000  0.82632500 1641147569
+SQLSTATE[23000]: Integrity constraint violation: 1048 Column 'idUser' cannot be null##Código: 23000  0.66719700 1641147592
+SQLSTATE[23000]: Integrity constraint violation: 1048 Column 'idUser' cannot be null##Código: 23000  0.86524800 1641147649
+SQLSTATE[23000]: Integrity constraint violation: 1048 Column 'idUser' cannot be null##Código: 23000  0.80932100 1641147671
+SQLSTATE[23000]: Integrity constraint violation: 1048 Column 'idUser' cannot be null##Código: 23000  0.49506700 1641147737
+SQLSTATE[23000]: Integrity constraint violation: 1048 Column 'idUser' cannot be null##Código: 23000  0.96554700 1641147869
+SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '75-2' for key 'PRIMARY'##Código: 23000  0.01962000 1641151867
+SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry 'ZAZAZ' for key 'uk_user'##Código: 23000  0.05700300 1641152128
+SQLSTATE[23000]: Integrity constraint violation: 1048 Column 'idUser' cannot be null##Código: 23000  0.06159400 1641152128
+SQLSTATE[23000]: Integrity constraint violation: 1048 Column 'idUser' cannot be null##Código: 23000  0.70551900 1641152755

@@ -17,7 +17,14 @@
                     if ($message == "error") {
                          echo "<p class=" . 'errorLogin' .">Usuario no encontrado en nuestra base de datos.</p>";
                     }
-                }            
+                }   
+                
+                if (isset($_GET['registro'])) {   //Recogemos el valor del GET y si el mensaje es ok es que se ha registrado correctamente el usuario y sacamos un mensaje
+                    $message = $_GET['registro'];
+                    if ($message == "ok") {
+                         echo "<p class=" . 'registro' .">Bienvenido. Ya puedes iniciar sesión con tu cuenta.</p>";
+                    }
+                }
             ?>
             <p>¿Todavía no tienes una cuenta? <a href="pages/registro.php">Regístrate aquí</a>.</p>          
         </div>        
