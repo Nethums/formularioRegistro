@@ -8,7 +8,7 @@
         <title>Galería imágenes</title>
     </head>
     <body>        
-        <div class="container galeria">
+        <div class="container ">
             <h1>Galería de imágenes del usuario</h1>
             <div class="galeria">
                 <?php

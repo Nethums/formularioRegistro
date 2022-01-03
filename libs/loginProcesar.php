@@ -16,7 +16,7 @@
         //Añadimos un mensaje por GET para recogerlo en la página index.php y mostrar un mensaje de error en caso de que la identificación haya sido
         header('Location: ../index.php?noLogin=error');
     } else {
-        header('Location: ../pages/galeria.php?usuario=' . $usuario);
+        header('Location: ../pages/eleccionUsuario.php?usuario=' . $usuario);
     }
 
 ?>
