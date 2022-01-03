@@ -31,7 +31,7 @@
         if(!$error) {
             /* Depende de la opción que haya elegido el usuario en Select guardaremos la imagen en una carpeta diferente */
             if ($opcionSelect == "privada") {
-                $usuario = "Nethuns"; //Prueba donde le doy el usuario directamente
+                $usuario = "user123"; //Prueba donde le doy el usuario directamente
                 $path = "usuarios/" . $usuario;
                 $fotoUsuario = cSubirImagen("fotoUsuario", $usuario, $directorioUsuarios, $extensionesValidas, $errores);
 

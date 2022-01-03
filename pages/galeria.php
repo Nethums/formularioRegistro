@@ -11,18 +11,23 @@
         <div class="container galeria">
             <h1>Galería de imágenes del usuario</h1>
             <div class="galeria">
-                <a href="../fotosPerfil/foto_usuario_1.jpg" target="_blank" alt="foto usuario"><img src="../fotosPerfil/foto_usuario_1.jpg" alt="foto-usuario"></a>   
+                <?php
+
+                $usuario = $_GET['usuario'];
+                $directorioUsuario = "../imagenes/" . $usuario . "/";
+                $ficheros = scandir($directorioUsuario);
+                /*Con array_slice nos quedamos solamente a partir del 3 valor del array (la segunda parte de los parámetros, en este caso el 2 ya que el primer valor es "." y el segundo "..")*/
+                $fotosUsuarios = array_slice($ficheros, 2);
                 
-                <a href="../fotosPerfil/foto_usuario_1.jpg" target="_blank" alt="foto usuario"><img src="../fotosPerfil/foto_usuario_1.jpg" alt="foto-usuario"></a>  
+                foreach ($fotosUsuarios as $foto) {
+                    echo "<a href=" . $directorioUsuario . $foto ." target='_blank'><img src=" . $directorioUsuario . $foto ."></a>";
+                }
+                
 
-                <a href="../fotosPerfil/foto_usuario_1.jpg" target="_blank" alt="foto usuario"><img src="../fotosPerfil/foto_usuario_1.jpg" alt="foto-usuario"></a>  
 
-                <a href="../fotosPerfil/foto_usuario_1.jpg" target="_blank" alt="foto usuario"><img src="../fotosPerfil/foto_usuario_1.jpg" alt="foto-usuario"></a>  
+                ?>
 
-                <a href="../fotosPerfil/foto_usuario_1.jpg" target="_blank" alt="foto usuario"><img src="../fotosPerfil/foto_usuario_1.jpg" alt="foto-usuario"></a>  
-
-                <a href="../fotosPerfil/foto_usuario_1.jpg" target="_blank" alt="foto usuario"><img src="../fotosPerfil/foto_usuario_1.jpg" alt="foto-usuario"></a>  
-             </div>              
+            </div>              
         </div>        
     </body>
 </html>
