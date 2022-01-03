@@ -51,9 +51,13 @@
                     
                     // Preparamos consulta
                     $stmt = $pdo->prepare("INSERT INTO imagenes (rutaImagen, idUser, descripcion) values (?, ?, ?)");
-                    $nombreArchivo = $_FILES['fotoUsuario']['name'];  
-                    $nombreFotoSinEspacios = str_replace(" ", "_", $nombreArchivo);
-                    $rutaImagenUsuario = $directorioUsuarios . $usuario . "/" . $nombreFotoSinEspacios;
+                    /* Preparamos el nombre de la foto para quitarle todos los espacios antes de meterla en la base de datos */
+                    $nombreFotoSinEspacios = reemplazarEnFiles ("fotoUsuario", "name", " ", "_");
+                    /* Aseguramos que no hayan imágenes duplicadas, si la hay le cambiamos el nombre y añadimos time() */
+                    
+/* Cambiar el time por números. Añadir un número entero a la imagen ya que puede darse el caso de que lo guarde en otro segundo y no se correspondería la imagen ya que tendría valores distintos. Por ejemplo campo_1.jpg (cogeríamos el valor entre el "_" y el "." y le añadiríamos +1 */            
+                    $nombreImagenFinal = cambiarNombreFotoSiEstaEnDirectorio ($directorioUsuarios, $usuario, $nombreFotoSinEspacios);
+                    $rutaImagenUsuario = $directorioUsuarios . $usuario . "/" . $nombreImagenFinal;
                     $descripcionFoto = $_REQUEST['descripcionFoto'];
                     
                     // Bind - Vinculamos cada variable a un parámetro de la sentencia $stmt por orden

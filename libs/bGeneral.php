@@ -279,9 +279,9 @@ function cSubirImagen(string $campo, string $usuario, string $directorioUsuarios
 
     $directorioTemp = $_FILES[$campo]['tmp_name'];
     $extension = $_FILES[$campo]['type'];
-    $nombreArchivo = $_FILES[$campo]['name'];  
+    //$nombreArchivo = $_FILES[$campo]['name'];
     //No se pueden guardar nombres de fotos con espacios, por tanto cambiamos los espacios por _  
-    $nombreFotoSinEspacios = str_replace(" ", "_", $nombreArchivo);
+    $nombreFotoSinEspacios = reemplazarEnFiles ("fotoUsuario", "name", " ", "_");
 
     if($_FILES[$campo]['error'] == 0 && $_FILES[$campo]['size'] > 0) {
         /* El usuario ha subido una foto y hay que analizarla */        
@@ -299,7 +299,7 @@ function cSubirImagen(string $campo, string $usuario, string $directorioUsuarios
 
         if (is_file("../" .$directorioUsuarios . $usuario .'/' . $nombreFotoSinEspacios)) {
             // Si existe una imagen con el mismo nombre le añadimos al final lo que devuelve time() precedido de un _
-            $nombrePartes = explode(".", $nombreArchivo);
+            $nombrePartes = explode(".", $nombreFotoSinEspacios);
             $nombreFinal = $nombrePartes[0] . "_" . time() . "." . $nombrePartes[1];
             $nombreFotoSinEspacios = $nombreFinal;
         }
@@ -312,6 +312,25 @@ function cSubirImagen(string $campo, string $usuario, string $directorioUsuarios
             $errores[] = "Error: No se puede mover el fichero a su destino";
             return FALSE;
         }
+    }
+}
+
+/* Función donde se le pasa un campo y dos valores: lo que queremos sustituir y por lo que se sustituye. Devuelve la cadena con el reemplazo */
+function reemplazarEnFiles (string $campo, string $atributo, string $aparicionEnString, string $reemplazo) {
+    $cadenaOriginal = $_FILES[$campo][$atributo];  
+    //Cambiar $aparicionEnString por $reemplazo
+    $cadenaFinal = str_replace($aparicionEnString, $reemplazo, $cadenaOriginal);
+    return $cadenaFinal;
+}
+
+/*  */
+function cambiarNombreFotoSiEstaEnDirectorio (string $directorio, string $usuario, $nombreArchivo) {
+    if (is_file("../" .$directorio . $usuario .'/' . $nombreArchivo)) {
+        // Si existe una imagen con el mismo nombre le añadimos al final lo que devuelve time() precedido de un _
+        $nombrePartes = explode(".", $nombreArchivo);
+        $nombreFinal = $nombrePartes[0] . "_" . time() . "." . $nombrePartes[1];
+        $nombreArchivo = $nombreFinal;
+        return $nombreArchivo;
     }
 }
 
