@@ -279,11 +279,13 @@ function cSubirImagen(string $campo, string $usuario, string $directorioUsuarios
 
     $directorioTemp = $_FILES[$campo]['tmp_name'];
     $extension = $_FILES[$campo]['type'];
-    $nombreArchivo = $_FILES[$campo]['name'];    
+    $nombreArchivo = $_FILES[$campo]['name'];  
+    //No se pueden guardar nombres de fotos con espacios, por tanto cambiamos los espacios por _  
+    $nombreFotoSinEspacios = str_replace(" ", "_", $nombreArchivo);
 
     if($_FILES[$campo]['error'] == 0 && $_FILES[$campo]['size'] > 0) {
         /* El usuario ha subido una foto y hay que analizarla */        
-        $nombrePartes = explode(".", $nombreArchivo); 
+        $nombrePartes = explode(".", $nombreFotoSinEspacios); 
         //Necesitamos la extensión de la foto que ha subido el usuario, por eso nos quedamos con el segundo item del array que es la extensión
         $extensionImagen = $nombrePartes[1];
 
@@ -295,14 +297,14 @@ function cSubirImagen(string $campo, string $usuario, string $directorioUsuarios
             return FALSE;
         }
 
-        if (is_file("../" .$directorioUsuarios . $usuario .'/' . $nombreArchivo)) {
+        if (is_file("../" .$directorioUsuarios . $usuario .'/' . $nombreFotoSinEspacios)) {
             // Si existe una imagen con el mismo nombre le añadimos al final lo que devuelve time() precedido de un _
             $nombrePartes = explode(".", $nombreArchivo);
             $nombreFinal = $nombrePartes[0] . "_" . time() . "." . $nombrePartes[1];
-            $nombreArchivo = $nombreFinal;
+            $nombreFotoSinEspacios = $nombreFinal;
         }
 
-        $rutaUsuario = "../" .$directorioUsuarios . $usuario .'/' . $nombreArchivo;
+        $rutaUsuario = "../" .$directorioUsuarios . $usuario .'/' . $nombreFotoSinEspacios;
         if (move_uploaded_file($directorioTemp, $rutaUsuario)) {
             // En este caso devolvemos sólo el nombre del fichero sin la ruta
             return TRUE;

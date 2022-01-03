@@ -21,6 +21,12 @@ p.errorLogin {
     padding-top: 10px;
 }
 
+p.fotoSubida {
+    color: green;
+    font-weight: bold;
+    padding-top: 10px;
+}
+
 /* Clase usuario registrado correctamente en Index */
 p.registro {
     color: green;
