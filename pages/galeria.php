@@ -12,19 +12,15 @@
             <h1>Galería de imágenes del usuario</h1>
             <div class="galeria">
                 <?php
-
-                $usuario = $_GET['usuario'];
-                $directorioUsuario = "../imagenes/" . $usuario . "/";
-                $ficheros = scandir($directorioUsuario);
-                /*Con array_slice nos quedamos solamente a partir del 3 valor del array (la segunda parte de los parámetros, en este caso el 2 ya que el primer valor es "." y el segundo "..")*/
-                $fotosUsuarios = array_slice($ficheros, 2);
-                
-                foreach ($fotosUsuarios as $foto) {
-                    echo "<a href=" . $directorioUsuario . $foto ." target='_blank'><img src=" . $directorioUsuario . $foto ."></a>";
-                }
-                
-
-
+                    $usuario = $_GET['usuario'];
+                    $directorioUsuario = "../imagenes/" . $usuario . "/";
+                    $ficheros = scandir($directorioUsuario);
+                    /*Con array_slice nos quedamos solamente a partir del 3 valor del array (la segunda parte de los parámetros, en este caso el 2 ya que el primer valor es "." y el segundo "..")*/
+                    $fotosUsuarios = array_slice($ficheros, 2);
+                    
+                    foreach ($fotosUsuarios as $foto) {
+                        echo "<a href=" . $directorioUsuario . $foto ." target='_blank'><img src=" . $directorioUsuario . $foto ."></a>";
+                    }
                 ?>
 
             </div>              
