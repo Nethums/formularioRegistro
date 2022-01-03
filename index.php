@@ -9,17 +9,19 @@
     </head>
     <body>        
         <div class="container">
-            <h1>Login/Registro de la web</h1>
+            <h1>Login/Registro de la web</h1>            
             <?php 
                 include('forms/formularioLogin.php');
-                if (isset($_GET['noLogin'])) {   //Recogemos el valor del GET y si el               mensaje es error entonces añadimos el echo
+
+                //Recogemos el valor del GET y si el mensaje es error entonces añadimos el echo
+                if (isset($_GET['noLogin'])) {   
                     $message = $_GET['noLogin'];
                     if ($message == "error") {
                          echo "<p class=" . 'errorLogin' .">Usuario no encontrado en nuestra base de datos.</p>";
                     }
                 }   
-                
-                if (isset($_GET['registro'])) {   //Recogemos el valor del GET y si el mensaje es ok es que se ha registrado correctamente el usuario y sacamos un mensaje
+                //Recogemos el valor del GET y si el mensaje es ok es que se ha registrado correctamente el usuario y sacamos un mensaje
+                if (isset($_GET['registro'])) {   
                     $message = $_GET['registro'];
                     if ($message == "ok") {
                          echo "<p class=" . 'registro' .">Bienvenido. Ya puedes iniciar sesión con tu cuenta.</p>";
