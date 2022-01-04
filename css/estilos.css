@@ -21,6 +21,12 @@ p.errorLogin {
     padding-top: 10px;
 }
 
+p.fotoSubida {
+    color: green;
+    font-weight: bold;
+    padding-top: 10px;
+}
+
 /* Clase usuario registrado correctamente en Index */
 p.registro {
     color: green;
@@ -41,7 +47,6 @@ p.errorImagen {
 div.galeria {
     padding-top: 50px;
     justify-content: flex-start;
-    background-color: green;
     width: 600px;
 }
 
@@ -54,11 +59,12 @@ div.galeria {
 }
 
 /* Imágenes de la galería */
-img {
-    width: 150px;
+div.galeria img {
+    width: 180px;
     height: 200px;
     object-fit: cover;  /* Propiedad para que la imágen no se deforme al cambiar las dimensiones */
     margin: 5px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.4), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 /* Botón formulario de la página errorRegistro.php */
@@ -91,7 +97,7 @@ ul.eleccionUsuario {
     justify-content:space-around;
 }
 
-ul.eleccionUsuario li a {
+ul.eleccionUsuario li a, a.galeria {
     width: 200px;
     padding: 10px 20px;
     background-color: #333;
@@ -103,11 +109,15 @@ ul.eleccionUsuario li a {
     display: block;
 }
 
-ul.eleccionUsuario li a:hover {
+ul.eleccionUsuario li a:hover, a.galeria:hover {
     font-weight: 400;
     background-image: linear-gradient(to right, #333, #474747, #333);
     /*moz-transition: all .4s ease-in-out;*/
     -o-transition: all .4s ease-in-out;
     -webkit-transition: all .4s ease-in-out;
     transition: all .4s ease-in-out;
+}
+
+a.galeria {
+    margin-top:20px;
 }

@@ -27,3 +27,11 @@ SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '75-2' for
 SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry 'ZAZAZ' for key 'uk_user'##Código: 23000  0.05700300 1641152128
 SQLSTATE[23000]: Integrity constraint violation: 1048 Column 'idUser' cannot be null##Código: 23000  0.06159400 1641152128
 SQLSTATE[23000]: Integrity constraint violation: 1048 Column 'idUser' cannot be null##Código: 23000  0.70551900 1641152755
+SQLSTATE[HY093]: Invalid parameter number: parameter was not defined##Código: HY093  0.81131400 1641239105
+SQLSTATE[HY093]: Invalid parameter number: parameter was not defined##Código: HY093  0.32620700 1641239129
+SQLSTATE[HY093]: Invalid parameter number: parameter was not defined##Código: HY093  0.07067500 1641239197
+SQLSTATE[HY093]: Invalid parameter number: parameter was not defined##Código: HY093  0.60918300 1641239214
+SQLSTATE[42S22]: Column not found: 1054 Unknown column 'user123' in 'where clause'##Código: 42S22  0.75520400 1641240209
+SQLSTATE[42S22]: Column not found: 1054 Unknown column 'user123' in 'where clause'##Código: 42S22  0.82120900 1641240221
+SQLSTATE[42S22]: Column not found: 1054 Unknown column 'user123' in 'where clause'##Código: 42S22  0.12493300 1641240293
+SQLSTATE[HY093]: Invalid parameter number: parameter was not defined##Código: HY093  0.72533800 1641240472

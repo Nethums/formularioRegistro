@@ -275,15 +275,17 @@ function cFotoPerfil(string $campo, string $usuario, string $path, string $direc
 }
 
 /* Función para el formularioSubirImagenes. Dependiendo de la opción que haya elegido, la imagen se guardará en una carpeta diferente */
-function cSubirImagen(string $campo, string $usuario, string $directorioUsuarios, array $extensionesValidas, array &$errores) {
+function cSubirImagen(string $campo, string $usuario, string $directorioUsuarios, array $extensionesValidas, array &$errores, string $publicaPrivada) {
 
     $directorioTemp = $_FILES[$campo]['tmp_name'];
     $extension = $_FILES[$campo]['type'];
-    $nombreArchivo = $_FILES[$campo]['name'];    
+    //$nombreArchivo = $_FILES[$campo]['name'];
+    //No se pueden guardar nombres de fotos con espacios, por tanto cambiamos los espacios por _  
+    $nombreFotoSinEspacios = reemplazarEnFiles ("fotoUsuario", "name", " ", "_");
 
     if($_FILES[$campo]['error'] == 0 && $_FILES[$campo]['size'] > 0) {
         /* El usuario ha subido una foto y hay que analizarla */        
-        $nombrePartes = explode(".", $nombreArchivo); 
+        $nombrePartes = explode(".", $nombreFotoSinEspacios); 
         //Necesitamos la extensión de la foto que ha subido el usuario, por eso nos quedamos con el segundo item del array que es la extensión
         $extensionImagen = $nombrePartes[1];
 
@@ -295,23 +297,66 @@ function cSubirImagen(string $campo, string $usuario, string $directorioUsuarios
             return FALSE;
         }
 
-        if (is_file("../" .$directorioUsuarios . $usuario .'/' . $nombreArchivo)) {
-            // Si existe una imagen con el mismo nombre le añadimos al final lo que devuelve time() precedido de un _
-            $nombrePartes = explode(".", $nombreArchivo);
-            $nombreFinal = $nombrePartes[0] . "_" . time() . "." . $nombrePartes[1];
-            $nombreArchivo = $nombreFinal;
+        if ($publicaPrivada == "privada") {
+            if (is_file("../" .$directorioUsuarios . $usuario .'/' . $nombreFotoSinEspacios)) {
+                // Si existe una imagen con el mismo nombre le añadimos al final lo que devuelve time() precedido de un _
+                $nombrePartes = explode(".", $nombreFotoSinEspacios);
+                $nombreFinal = $nombrePartes[0] . "_" . time() . "." . $nombrePartes[1];
+                $nombreFotoSinEspacios = $nombreFinal;
+            }
+             
+            $rutaUsuario = "../" .$directorioUsuarios . $usuario .'/' . $nombreFotoSinEspacios;
+            if (move_uploaded_file($directorioTemp, $rutaUsuario)) {
+                // En este caso devolvemos sólo el nombre del fichero sin la ruta
+                return TRUE;
+            } else {
+                $errores[] = "Error: No se puede mover el fichero a su destino";
+                return FALSE;
+            }
         }
 
-        $rutaUsuario = "../" .$directorioUsuarios . $usuario .'/' . $nombreArchivo;
-        if (move_uploaded_file($directorioTemp, $rutaUsuario)) {
-            // En este caso devolvemos sólo el nombre del fichero sin la ruta
-            return TRUE;
-        } else {
-            $errores[] = "Error: No se puede mover el fichero a su destino";
-            return FALSE;
+        if ($publicaPrivada == "publica") {
+            if (is_file("../" .$directorioUsuarios . $nombreFotoSinEspacios)) {
+                // Si existe una imagen con el mismo nombre le añadimos al final lo que devuelve time() precedido de un _
+                $nombrePartes = explode(".", $nombreFotoSinEspacios);
+                $nombreFinal = $nombrePartes[0] . "_" . time() . "." . $nombrePartes[1];
+                $nombreFotoSinEspacios = $nombreFinal;
+            }
+             
+            $rutaUsuario = "../" .$directorioUsuarios . $nombreFotoSinEspacios;
+            if (move_uploaded_file($directorioTemp, $rutaUsuario)) {
+                // En este caso devolvemos sólo el nombre del fichero sin la ruta
+                return TRUE;
+            } else {
+                $errores[] = "Error: No se puede mover el fichero a su destino";
+                return FALSE;
+            }
         }
+        
     }
 }
+
+/* Función donde se le pasa un campo y dos valores: lo que queremos sustituir y por lo que se sustituye. Devuelve la cadena con el reemplazo */
+function reemplazarEnFiles (string $campo, string $atributo, string $aparicionEnString, string $reemplazo) {
+    $cadenaOriginal = $_FILES[$campo][$atributo];  
+    //Cambiar $aparicionEnString por $reemplazo
+    $cadenaFinal = str_replace($aparicionEnString, $reemplazo, $cadenaOriginal);
+    return $cadenaFinal;
+}
+
+/*  */
+function cambiarNombreFotoSiEstaEnDirectorio (string $directorio, string $usuario, $nombreArchivo) {
+    if (is_file("../" .$directorio . $usuario .'/' . $nombreArchivo)) {
+        // Si existe una imagen con el mismo nombre le añadimos al final lo que devuelve time() precedido de un _
+        $nombrePartes = explode(".", $nombreArchivo);
+        $nombreFinal = $nombrePartes[0] . "_" . time() . "." . $nombrePartes[1];
+        $nombreArchivo = $nombreFinal;
+        return $nombreArchivo;
+    }
+}
+
+
+
 
 
 ?>

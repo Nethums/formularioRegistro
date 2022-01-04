@@ -21,6 +21,10 @@
                     foreach ($fotosUsuarios as $foto) {
                         echo "<a href=" . $directorioUsuario . $foto ." target='_blank'><img src=" . $directorioUsuario . $foto ."></a>";
                     }
+
+                    //Añadimos un botón por si el usuario quiere subir más imágenes
+                    $usuario = $_GET['usuario'];
+                    echo "<a href='subirImagenes.php?usuario=" . $usuario . "' class='galeria'>Subir más imágenes</a>";
                 ?>
 
             </div>              
