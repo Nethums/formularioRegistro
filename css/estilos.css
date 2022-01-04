@@ -56,6 +56,9 @@ div.galeria {
     justify-content: space-evenly;
     flex-wrap: wrap;
     padding: 5px;
+    border: 1px solid #000;
+    padding: 20px;
+    margin-bottom: 30px;
 }
 
 /* Imágenes de la galería */
