@@ -137,7 +137,6 @@
                     $errores['datos'] = "Ha habido un error <br>";
                 }
 
-/*
                 if ($fotoUsuario) {
                     //Devolvemos por $GET el nombre del usuario y el valor OK para recogerlo en pages/subirImagenes.php
                     header('Location: ../pages/subirImagenes.php?usuario=' . $usuario .'&foto=ok');
@@ -145,11 +144,7 @@
                     //Devolvemos por $GET el nombre del usuario y el valor ERROR para recogerlo en pages/subirImagenes.php
                     header('Location: ../pages/subirImagenes.php?usuario=' . $usuario .'&foto=error');
                 }
-*/
-
-
             }
-
         } else {
             echo "ERROR";
         }
