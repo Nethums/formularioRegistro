@@ -49,8 +49,8 @@
                     /* Aseguramos que no hayan imágenes duplicadas, si la hay le cambiamos el nombre y añadimos time() */
                     
                     $imagenesCarpetaUsuario = scandir("../" . $directorioUsuarios . $usuario . "/");
-                    
-                    if(in_array("$nombreFotoSinEspacios", $imagenesCarpetaUsuario )) {
+
+                    if(in_array($nombreFotoSinEspacios, $imagenesCarpetaUsuario )) {
                         echo "LA FOTO EXISTE <br><br>";
                         $nombreImagenFinal = cambiarNombreFotoSiEstaEnDirectorio ($directorioUsuarios, $usuario, $nombreFotoSinEspacios, "privada");
                         $rutaImagenUsuario = $directorioUsuarios . $usuario . "/" . $nombreImagenFinal;
@@ -85,10 +85,10 @@
 
                 if ($fotoUsuario) {
                     //Devolvemos por $GET el nombre del usuario y el valor OK para recogerlo en pages/subirImagenes.php
-                    header('Location: ../pages/subirImagenes.php?usuario=' . $usuario .'&foto=ok');
+                   header('Location: ../pages/subirImagenes.php?usuario=' . $usuario .'&foto=ok');
                 } else {
                     //Devolvemos por $GET el nombre del usuario y el valor ERROR para recogerlo en pages/subirImagenes.php
-                  header('Location: ../pages/subirImagenes.php?usuario=' . $usuario .'&foto=error');
+                    header('Location: ../pages/subirImagenes.php?usuario=' . $usuario .'&foto=error');
                 }
             }       
 
