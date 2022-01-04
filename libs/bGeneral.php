@@ -275,7 +275,7 @@ function cFotoPerfil(string $campo, string $usuario, string $path, string $direc
 }
 
 /* Función para el formularioSubirImagenes. Dependiendo de la opción que haya elegido, la imagen se guardará en una carpeta diferente */
-function cSubirImagen(string $campo, string $usuario, string $directorioUsuarios, array $extensionesValidas, array &$errores) {
+function cSubirImagen(string $campo, string $usuario, string $directorioUsuarios, array $extensionesValidas, array &$errores, string $publicaPrivada) {
 
     $directorioTemp = $_FILES[$campo]['tmp_name'];
     $extension = $_FILES[$campo]['type'];
@@ -297,21 +297,42 @@ function cSubirImagen(string $campo, string $usuario, string $directorioUsuarios
             return FALSE;
         }
 
-        if (is_file("../" .$directorioUsuarios . $usuario .'/' . $nombreFotoSinEspacios)) {
-            // Si existe una imagen con el mismo nombre le añadimos al final lo que devuelve time() precedido de un _
-            $nombrePartes = explode(".", $nombreFotoSinEspacios);
-            $nombreFinal = $nombrePartes[0] . "_" . time() . "." . $nombrePartes[1];
-            $nombreFotoSinEspacios = $nombreFinal;
+        if ($publicaPrivada == "privada") {
+            if (is_file("../" .$directorioUsuarios . $usuario .'/' . $nombreFotoSinEspacios)) {
+                // Si existe una imagen con el mismo nombre le añadimos al final lo que devuelve time() precedido de un _
+                $nombrePartes = explode(".", $nombreFotoSinEspacios);
+                $nombreFinal = $nombrePartes[0] . "_" . time() . "." . $nombrePartes[1];
+                $nombreFotoSinEspacios = $nombreFinal;
+            }
+             
+            $rutaUsuario = "../" .$directorioUsuarios . $usuario .'/' . $nombreFotoSinEspacios;
+            if (move_uploaded_file($directorioTemp, $rutaUsuario)) {
+                // En este caso devolvemos sólo el nombre del fichero sin la ruta
+                return TRUE;
+            } else {
+                $errores[] = "Error: No se puede mover el fichero a su destino";
+                return FALSE;
+            }
         }
 
-        $rutaUsuario = "../" .$directorioUsuarios . $usuario .'/' . $nombreFotoSinEspacios;
-        if (move_uploaded_file($directorioTemp, $rutaUsuario)) {
-            // En este caso devolvemos sólo el nombre del fichero sin la ruta
-            return TRUE;
-        } else {
-            $errores[] = "Error: No se puede mover el fichero a su destino";
-            return FALSE;
+        if ($publicaPrivada == "publica") {
+            if (is_file("../" .$directorioUsuarios . $nombreFotoSinEspacios)) {
+                // Si existe una imagen con el mismo nombre le añadimos al final lo que devuelve time() precedido de un _
+                $nombrePartes = explode(".", $nombreFotoSinEspacios);
+                $nombreFinal = $nombrePartes[0] . "_" . time() . "." . $nombrePartes[1];
+                $nombreFotoSinEspacios = $nombreFinal;
+            }
+             
+            $rutaUsuario = "../" .$directorioUsuarios . $nombreFotoSinEspacios;
+            if (move_uploaded_file($directorioTemp, $rutaUsuario)) {
+                // En este caso devolvemos sólo el nombre del fichero sin la ruta
+                return TRUE;
+            } else {
+                $errores[] = "Error: No se puede mover el fichero a su destino";
+                return FALSE;
+            }
         }
+        
     }
 }
 
@@ -333,6 +354,9 @@ function cambiarNombreFotoSiEstaEnDirectorio (string $directorio, string $usuari
         return $nombreArchivo;
     }
 }
+
+
+
 
 
 ?>

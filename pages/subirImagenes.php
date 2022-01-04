@@ -27,6 +27,10 @@
                          echo "<p class=" . 'errorLogin' .">La foto no se ha podido guardar.</p>";
                     }
                 }  
+
+                //Añadimos un botón por si el usuario quiere subir más imágenes
+                $usuario = $_GET['usuario'];
+                echo "<a href='galeria.php?usuario=" . $usuario . "' class='galeria'>Ver fotos de la galería</a>";
             ?>
         </div>        
     </body>
