@@ -149,3 +149,11 @@ div.botonesSubirImagenes, div.botonesGaleria {
 a.subirImagenes {
     width: 100% !important;
 }
+
+a.subirMasImagenes {
+    width: 90%;
+}
+div.eleccionUsuario {
+    width: 500px;
+    height: 200px;
+}
