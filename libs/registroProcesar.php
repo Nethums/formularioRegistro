@@ -108,6 +108,7 @@
             try {
                 include ('../libs/bConecta.php');
                 // Preparamos consulta        
+                // Al crear la tabla de aficiones, videojuegos es la primera y empieza por el índice 2
                 $aficionesUSuario = $_REQUEST["aficiones"];
                 if (in_array("Videojuegos", $aficionesUSuario)) {
                     $stmt1 = $pdo->prepare("INSERT INTO aficionesuser (idUser, idAficion) values (?, ?)");
@@ -115,7 +116,7 @@
                     // Bind - Vinculamos cada variable a un parámetro de la sentencia $stmt por orden
 
                     $idUser = $userIdGuardado;
-                    $idAficion = "1"; //Videojuegos es la afición 1
+                    $idAficion = "2"; //Videojuegos es la afición 2
 
                     $stmt1->bindParam(1, $idUser);
                     $stmt1->bindParam(2, $idAficion);
@@ -133,7 +134,7 @@
                     // Bind - Vinculamos cada variable a un parámetro de la sentencia $stmt por orden
 
                     $idUser = $userIdGuardado;
-                    $idAficion = "2"; //Series es la afición 2
+                    $idAficion = "3"; //Series es la afición 3
 
                     $stmt2->bindParam(1, $idUser);
                     $stmt2->bindParam(2, $idAficion);
@@ -151,7 +152,7 @@
                     // Bind - Vinculamos cada variable a un parámetro de la sentencia $stmt por orden
 
                     $idUser = $userIdGuardado;
-                    $idAficion = "3"; //Deportes es la afición 3
+                    $idAficion = "4"; //Deportes es la afición 4
 
                     $stmt3->bindParam(1, $idUser);
                     $stmt3->bindParam(2, $idAficion);
@@ -169,7 +170,7 @@
                     // Bind - Vinculamos cada variable a un parámetro de la sentencia $stmt por orden
 
                     $idUser = $userIdGuardado;
-                    $idAficion = "4"; //Leer es la afición 4
+                    $idAficion = "5"; //Leer es la afición 5
 
                     $stmt4->bindParam(1, $idUser);
                     $stmt4->bindParam(2, $idAficion);
@@ -187,7 +188,7 @@
                     // Bind - Vinculamos cada variable a un parámetro de la sentencia $stmt por orden
 
                     $idUser = $userIdGuardado;
-                    $idAficion = "5"; //Bailar es la afición 2
+                    $idAficion = "6"; //Bailar es la afición 6
 
                     $stmt5->bindParam(1, $idUser);
                     $stmt5->bindParam(2, $idAficion);
@@ -205,7 +206,7 @@
                     // Bind - Vinculamos cada variable a un parámetro de la sentencia $stmt por orden
 
                     $idUser = $userIdGuardado;
-                    $idAficion = "6"; //Senderismo es la afición 6
+                    $idAficion = "7"; //Senderismo es la afición 7
 
                     $stmt6->bindParam(1, $idUser);
                     $stmt6->bindParam(2, $idAficion);
@@ -224,7 +225,7 @@
                     // Bind - Vinculamos cada variable a un parámetro de la sentencia $stmt por orden
 
                     $idUser = $userIdGuardado;
-                    $idAficion = "7"; //Viajar es la afición 7
+                    $idAficion = "8"; //Viajar es la afición 8
 
                     $stmt7->bindParam(1, $idUser);
                     $stmt7->bindParam(2, $idAficion);
@@ -242,7 +243,7 @@
                     // Bind - Vinculamos cada variable a un parámetro de la sentencia $stmt por orden
 
                     $idUser = $userIdGuardado;
-                    $idAficion = "8"; //Cine es la afición 8
+                    $idAficion = "9"; //Cine es la afición 9
 
                     $stmt8->bindParam(1, $idUser);
                     $stmt8->bindParam(2, $idAficion);
@@ -260,7 +261,7 @@
                     // Bind - Vinculamos cada variable a un parámetro de la sentencia $stmt por orden
 
                     $idUser = $userIdGuardado;
-                    $idAficion = "9"; //Cine es la afición 9
+                    $idAficion = "10"; //Cine es la afición 10
 
                     $stmt9->bindParam(1, $idUser);
                     $stmt9->bindParam(2, $idAficion);
@@ -278,7 +279,7 @@
                     // Bind - Vinculamos cada variable a un parámetro de la sentencia $stmt por orden
 
                     $idUser = $userIdGuardado;
-                    $idAficion = "10"; //Música es la afición 10
+                    $idAficion = "11"; //Música es la afición 11
 
                     $stmt10->bindParam(1, $idUser);
                     $stmt10->bindParam(2, $idAficion);
