@@ -35,3 +35,18 @@ SQLSTATE[42S22]: Column not found: 1054 Unknown column 'user123' in 'where claus
 SQLSTATE[42S22]: Column not found: 1054 Unknown column 'user123' in 'where clause'##Código: 42S22  0.82120900 1641240221
 SQLSTATE[42S22]: Column not found: 1054 Unknown column 'user123' in 'where clause'##Código: 42S22  0.12493300 1641240293
 SQLSTATE[HY093]: Invalid parameter number: parameter was not defined##Código: HY093  0.72533800 1641240472
+SQLSTATE[23000]: Integrity constraint violation: 1048 Column 'rutaImagen' cannot be null##Código: 23000  0.21433600 1641333760
+SQLSTATE[23000]: Integrity constraint violation: 1048 Column 'rutaImagen' cannot be null##Código: 23000  0.93527800 1641333791
+SQLSTATE[23000]: Integrity constraint violation: 1048 Column 'rutaImagen' cannot be null##Código: 23000  0.32608100 1641335506
+SQLSTATE[23000]: Integrity constraint violation: 1048 Column 'rutaImagen' cannot be null##Código: 23000  0.73693600 1641335591
+SQLSTATE[23000]: Integrity constraint violation: 1048 Column 'rutaImagen' cannot be null##Código: 23000  0.34502800 1641335648
+SQLSTATE[42S22]: Column not found: 1054 Unknown column 'user' in 'where clause'##Código: 42S22  0.22818700 1641582114
+SQLSTATE[42S22]: Column not found: 1054 Unknown column 'user' in 'where clause'##Código: 42S22  0.66921000 1641582130
+SQLSTATE[42S22]: Column not found: 1054 Unknown column 'user' in 'where clause'##Código: 42S22  0.80512800 1641582306
+SQLSTATE[42S22]: Column not found: 1054 Unknown column 'user' in 'where clause'##Código: 42S22  0.03432300 1641582319
+SQLSTATE[42S22]: Column not found: 1054 Unknown column 'user' in 'where clause'##Código: 42S22  0.59094200 1641582324
+SQLSTATE[42S22]: Column not found: 1054 Unknown column 'user' in 'where clause'##Código: 42S22  0.89108100 1641582489
+SQLSTATE[42S22]: Column not found: 1054 Unknown column 'user' in 'where clause'##Código: 42S22  0.60359300 1641582673
+SQLSTATE[42S22]: Column not found: 1054 Unknown column 'user' in 'where clause'##Código: 42S22  0.27413000 1641582677
+SQLSTATE[42S22]: Column not found: 1054 Unknown column 'user' in 'where clause'##Código: 42S22  0.97604600 1641583310
+SQLSTATE[42S22]: Column not found: 1054 Unknown column 'user' in 'where clause'##Código: 42S22  0.87784400 1641583414
