@@ -220,6 +220,31 @@ function cTextarea(string $text, string $campo, array &$errores, int $max = 300,
     return FALSE;
 }
 
+/*  */
+function cSubirImagenesUsuario(string $campo, array $extensionesValidas, array &$errores) {
+    
+    if ($_FILES[$campo]['error'] != 0) {
+        $errores[$campo] = "No se ha podido subir el fichero. Inténtalo de nuevo.";
+        return FALSE;     
+    } else {
+        return TRUE;
+    }
+    // Guardamos el nombre original del fichero
+    $nombreArchivo = $_FILES[$campo]['name'];
+    // Guardamos nombre del fichero en el servidor
+    $directorioTemp = $_FILES[$campo]['tmp_name'];
+    $extension = $_FILES[$campo]['type'];
+    
+    // Comprobamos la extensión del archivo dentro de la lista que hemos definido al principio
+    if (! in_array($extension, $extensionesValidas)) {
+        $errores[] = "La extensión del archivo no es válida o no se ha subido ningún archivo";
+        return FALSE;
+    }  else {
+        return TRUE;
+    }
+}
+
+
 /* Función que comprueba la foto enviada por el usuario. Comprueba que tiene una extensión válida dentro de las posibles (especificadas en libs/config.php). Si supera la comprobación sube la foto a la carpeta fotosPerfil */
 function cFotoPerfil(string $campo, string $usuario, string $path, string $directorioFotosPerfil, array $extensionesValidas, array &$errores) {
     

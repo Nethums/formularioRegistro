@@ -3,7 +3,8 @@
     require_once("config.php");
 
     $errores = [];
-
+    $usuario = $_GET['usuario'];
+    
     if (isset($_REQUEST["subirImagen"])) {
         $error = FALSE; 
 
@@ -20,6 +21,12 @@
         if (! cTextarea($descripcionFotoTextArea, "descripcionFoto", $errores, 80, 0)) {
             $error = TRUE;
         }
+
+        if (! cSubirImagenesUsuario("fotoUsuario", $extensionesValidas, $errores)) {
+            $error = TRUE;
+        }
+
+        
 
         if(!$error) {
             /* Depende de la opción que haya elegido el usuario en Select guardaremos la imagen en una carpeta diferente */
@@ -163,7 +170,7 @@
                 }
             }
         } else {
-            echo "ERROR";
+            header('Location: ../pages/subirImagenes.php?usuario=' . $usuario .'&foto=error');
         }
 
     }

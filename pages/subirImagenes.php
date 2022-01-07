@@ -30,7 +30,11 @@
 
                 //Añadimos un botón por si el usuario quiere subir más imágenes
                 $usuario = $_GET['usuario'];
-                echo "<a href='galeria.php?usuario=" . $usuario . "' class='galeria'>Ver fotos de la galería</a>";
+                echo "<div class='botonesSubirImagenes'>";
+                echo "<a href='galeria.php?usuario=" . $usuario . "&galeria=privada' class='galeria'>Ver galería privada</a>";
+
+                echo "<a href='galeria.php?usuario=" . $usuario . "&galeria=publica' class='galeria'>Ver galería pública</a>";
+                echo "</div>";
             ?>
         </div>        
     </body>

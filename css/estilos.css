@@ -100,8 +100,20 @@ ul.eleccionUsuario {
     justify-content:space-around;
 }
 
-ul.eleccionUsuario li a, a.galeria {
+ul.eleccionUsuario li a {
     width: 200px;
+    padding: 10px 20px;
+    background-color: #333;
+    border: 1px solid black;
+    text-align: center;
+    text-decoration: none;
+    color: white;
+    font-weight: 400;
+    display: block;
+}
+
+a.galeria {
+    width: 40%;
     padding: 10px 20px;
     background-color: #333;
     border: 1px solid black;
@@ -123,4 +135,17 @@ ul.eleccionUsuario li a:hover, a.galeria:hover {
 
 a.galeria {
     margin-top:20px;
+    width: 40%;
+}
+
+div.botonesSubirImagenes, div.botonesGaleria {
+    margin-top: 20px;
+    width: 490px;
+    height: 60px;
+    display: flex;
+    justify-content: space-between;
+}
+
+a.subirImagenes {
+    width: 100% !important;
 }
