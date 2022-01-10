@@ -15,15 +15,14 @@ Requisito indispensable hacerlo todo por método GET.
     - 5.2 [bGeneral.php](#bGeneral) 
     - 5.3 [bConecta.php](#bConecta) 
 6. [Formulario login](#login) 
-   * 6.1 [Ficheros necesarios para login](#ficherosNecesariosLogin) 
-        * 6.1.1 [loginProcesar.php](#loginProcesar) 
-        * 6.1.2 [bGeneral.php](#bGeneral) 
-        * 6.1.3 [bConecta.php](#bConecta) 
-6. [XXXXXXXXXXXXX](#YYYYYY) 
-7. [XXXXXXXXXXXXX](#YYYYYY)
-8. [XXXXXXXXXXXXX](#YYYYYY)
-9. [XXXXXXXXXXXXX](#YYYYYY)
-10. [XXXXXXXXXXXXX](#YYYYYY) 
+   * 6.1 [loginProcesar.php](#loginProcesar)
+7. [Formulario de registro](#formularioRegistro) 
+    * 7.1 [registroProcesar.php](#registroProcesar)
+8. [Formulario para subir imágenes](#subirImagnesphp)
+    * 8.1 [subirImagenes.php](#subirImagenesLib)
+9. [galeria.php](#galerias)
+    * 9.1 [Galería privada](#galeriaPrivada)
+    * 9.2 [Galería pública](#galeriaPublica)
 
 
 
@@ -36,6 +35,8 @@ Los requisitos del ejercicio se encuentran dentro del documento "enunciado.pdf".
 ### **2. Funcionamiento básico**
 -------------
 Se trata de un formulario de registro y login conectados a una base de datos. El usuario se podrá registrar y loguear mediante su usuario y contraseña. También puede subir imágenes y visualizarlas en las diferentes galerías.
+
+Todos los formularios se encuentran en la carpeta "forms", de esta forma quedan separados del código HTML y podemos acceder a ellos más fácilmente.
 
 <a name="crearBD"/></a>
 ### **3. Crear base de datos**
@@ -114,27 +115,91 @@ En caso de que el acceso sea incorrecto se mostrará un mensaje de error.
 
 Debajo del formulario hay un enlace para que un nuevo usuario pueda registrarse.
 
-<a name="ficherosNecesariosLogin"/></a>
-### **Ficheros necesarios para login**
--------------
-* **index.php**
-  - Página principal donde se encuentra el formulario.
-* **libs/loginProcesar.php**
-  - Archivo donde se realizan todas las operaciones necesarias para el login.
-* **libs/bConecta.php**
-  - Archivo donde se encuentra la conexión de a la base de datos.
-* **libs/bGeneral.php**
-  - Archivo donde se encuentran las funciones generales que se usan a lo largo del ejercicio.
-
 <a name="loginProcesar"/></a>
-### **6.1.1 loginProcesar.php**
+### **6.1 loginProcesar.php**
 -------------
 Fichero donde usamos "libs/bConecta.php" para conectarnos a la base de datos y hacer una query donde los parámetros es el usuario y password.
 
 Primero preparamos la consulta y si la query da como resultado 1 fila es porque ha sido correcta y dejamos loguearse al usuario. Si no da resultado es porque el usuario no existe y mostramos un mensaje de error.
 
-<a name="YYYYYYYY"/></a>
-### XXXXXXXXXXXXX
+<a name="formularioRegistro"/></a>
+### 7. Formulario de registro
 -------------
-ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ
+Esta página la podemos encontrar en "pages/registro.php" e incluye el formulario "forms/formularioRegistro.php".
 
+Se muestra un formulario de registro donde el usuario podrá introducir sus datos personales así como el nombre de usuario y contraseña que usará para acceder.
+
+También puede añadir una foto de perfil propia que se guardará dentro de la carpeta "fotosPerfil/" con el nombre del usuario.
+
+<a name="registroProcesar"/></a>
+### 7.1 registroProcesar.php
+-------------
+En este archivo de php es donde pasamos a procesar los datos que ha introducido el usuario.
+
+1. Recogemos los datos del formulario.
+2. Validamos que sean correctos según los filtros necesarios.
+3. Realizamos las acciones correspondientes.
+
+Una vez que hemos recogido y validado los datos del usuario procedemos a validar la imagen de perfil. En este ejercicio se requería una foto de perfil obligatoria, si el usuario no sube ninguna le asignamos la foto por defecto de la carpeta "img/".
+
+Después conectamos con la base de datos y hacemos el INSERT de los datos personales en la tabla "usuarios" y las aficiones en la tabla "aficionesUser". La tabla "aficiones" hace de enlace entre usuarios y aficionesUser para saber qué aficiones ha marcado el usuario.
+
+Por último creamos un directorio con el nombre del usuario dentro de la carpeta "imagenes/" donde irán guardadas las imágenes que el usuario decida subir como privadas.
+
+Si todo ha ido correctamente se le redirigirá a la página "index.php" con un mensaje diciendo que se ha registrado correctamente y ya puede acceder. En caso de error, se redirigirá a la página "pages/errorRegistro.php" donde se mostrarán los errores que han habido a la hora del registro.
+
+<a name="subirImagnesphp"/></a>
+### 8. Formulario para subir imágenes
+-------------
+Formulario donde el usuario podrá subir una imagen cada vez añadiendo una breve descripción (opcional) de la imagen. Existe la posibilidad de subir la imagen como:
+
+- **Privada**: Se guardará dentro del directorio privado del usuario en "imagenes/".
+- **Pública**: Se guardará dentro de la carpeta "imagenes/" junto con el resto de imágenes públicas de otros usuarios.
+
+
+<a name="subirImagenesLib"/></a>
+### 8.1 subirImagenes.php
+-------------
+Debemos procesar los datos igual que hicimos en el <a name="registroProcesar"/>procesamiento del formulario de registro</a>.
+
+1- Recogemos la opción elegida para guardar la imagen privada/pública,
+2- Validamos la imagen.
+3- Almacenamos la descripción.
+
+Privada
+-------------
+
+Después tenemos que averiguar la ID del usuario que hemos recogido por el $_GET ya que la necesitamos para guardar la información dentro de la tabla imagenes.
+
+Es importante quitar los espacios del nombre de la foto para guardarla correctamente y mostrarla posteriormente en la galeria. Para ello usamos la función "reemplazarEnFiles()".
+
+Guardamos en un array todos los nombres de las imágenes que hay en momento y si el usuario sube una imagen que tiene el mismo nombre que una imagen dentro de la carpeta le añadimos el time() para que no haya duplicidades gracias a la función "cambiarNombreFotoSiEstaEnDirectorio()". 
+
+La función "cambiarNombreFotoSiEstaEnDirectorio()" la podemos usar tanto para una imagen pública como para una imagen privada. El funcionamiento es simple, si encuentra el nombre de la foto le añade "time()" entre el nombre y la extensión.
+
+Subimos la imagen mediante la función "cSubirImagen()" y preparamos la consulta INSERT.
+
+Si la consulta ha ido bien volvemos a mostrar el formulario de subirImagens.php con un mensaje diciendo que se ha subido correctamente la imagen.
+
+Pública
+-------------
+
+En caso de que la imagen sea pública tenemos que cambiar el directorio, ya que se encuentra dentro de una carpeta con imágenes de otros usuarios.
+
+
+<a name="galerias"/></a>
+### 9. galeria.php
+-------------
+En esta página el usuario podrá ver sus imágenes privadas y públicas. Podrá navegar gracias a los botones inferiores e incluso acceder a la página para subir otras imágenes.
+
+<a name="galeriaPrivada"/></a>
+### 9.1 Galería privada
+-------------
+Para mostrar las imágenes privadas del usuario basta con escanear el directorio privado y mostrar las imágenes.
+
+<a name="galeriaPublica"/></a>
+### 9.2 Galería pública
+-------------
+Con la galería pública del usuario debemos hacer unos pasos previos ya que las imágenes estarán en una carpeta compartida con otros usuarios y sólo debemos mostrar las imánes del usuario.
+
+Para ello, primero conseguimos su ID con una query simple. Después hacemos una consulta con la ID del usuario y nos devolverá un array con todas las imágenes de ese usuario, tanto públicas como privadas. Tenemos que filtrar ese array y lo hacemos eliminando los elementos que contengan el nombre del usuario entre barras /, ya que eso quiere decir que estarán dentro de la carpeta privada. Por último sólo tenemos que mostrarlas.
