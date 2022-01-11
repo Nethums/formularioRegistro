@@ -146,7 +146,7 @@ Después conectamos con la base de datos y hacemos el INSERT de los datos person
 
 Por último creamos un directorio con el nombre del usuario dentro de la carpeta "imagenes/" donde irán guardadas las imágenes que el usuario decida subir como privadas.
 
-Si todo ha ido correctamente se le redirigirá a la página "index.php" con un mensaje diciendo que se ha registrado correctamente y ya puede acceder. En caso de error, se redirigirá a la página "pages/errorRegistro.php" donde se mostrarán los errores que han habido a la hora del registro.
+Si todo ha ido correctamente se le redirigirá a la página "index.php" con un mensaje diciendo que se ha registrado correctamente y ya puede acceder. En caso de error, se redirigirá a la página "pages/registro.php" donde se mostrarán los errores que han habido a la hora del registro debajo del formulario.
 
 <a name="subirImagnesphp"/></a>
 ### 8. Formulario para subir imágenes
