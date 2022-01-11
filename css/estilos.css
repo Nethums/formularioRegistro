@@ -44,6 +44,15 @@ p.errorImagen {
 }
 
 /* Div container-galeria */
+img.fotoPerfil {
+    width: 100px;
+    height: 100px;
+    border-radius: 100px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.4), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    object-fit: cover;
+}
+
 div.galeria {
     padding-top: 50px;
     justify-content: flex-start;

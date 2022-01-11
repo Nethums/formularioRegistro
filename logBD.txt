@@ -1,2 +1,0 @@
-SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry 'Nethuns' for key 'uk_user'##Código: 23000  0.09622300 1641925852
-SQLSTATE[23000]: Integrity constraint violation: 1048 Column 'idUser' cannot be null##Código: 23000  0.10078100 1641925852

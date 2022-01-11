@@ -11,9 +11,27 @@
         <div class="container ">       
            
             <?php
-                $usuario = $_GET['usuario'];
-                
+               /*********************************************************/
 
+               include("../libs/config.php");
+
+                $usuario = $_GET['usuario'];
+                $posicion = 0;
+
+                $fotosPerfilUsuarios = scandir("../" . $directorioFotosPerfil);
+                $fotosPerfilUsuariosSinPuntos = array_slice($fotosPerfilUsuarios, 2);
+
+                foreach ($fotosPerfilUsuariosSinPuntos as $indice => $foto) {
+                    if (preg_match("/\b$usuario\b/i", $foto)) {
+                        $posicion = $indice;
+                    }
+                }
+                $rutaImagen = "../" . $directorioFotosPerfil . $fotosPerfilUsuariosSinPuntos[$posicion];
+                echo "<img src='  $rutaImagen  ' class= 'fotoPerfil'></img>";
+
+
+
+               /********************************************************/
 
 
 
@@ -70,11 +88,13 @@
                         error_log($e->getMessage() . "##Código: " . $e->getCode() . "  " . microtime() . PHP_EOL, 3, "../logBD.txt");
                     }   
 
-                    /* Queremos quedarnos solamente con las rutas de las imagenes que no contentan el nombre del usuario ya que esas rutas pertenecen a las fotos privadas. Para ello nos quedamos con la primera key del array interno y usamos una expresión regular \b se usa para buscar una palabra dentro de un string */
+                    /* Queremos quedarnos solamente con las rutas de las imagenes que no contentan el nombre del usuario entre / ya que esas rutas pertenecen a las fotos privadas. También mostraría las imágenes públicas que contengan el nombre del usuario */
+                    $regex = "/\/$usuario\//";
+                    
                     foreach ($imagenesPublicasUsuario as $arrayImagenes) {
                         foreach ($arrayImagenes as $rutaImagen => $ruta) {
-                            if ($rutaImagen === array_key_first($arrayImagenes) && !preg_match("/\b$usuario\b/i", $ruta)) {
-                                echo "<img src='../$ruta'></img><br>";
+                            if ($rutaImagen === array_key_first($arrayImagenes) && !preg_match($regex , $ruta)) {
+                                echo "<a href='../$ruta' target='_blank'><img src='../$ruta'></img></a>";
                             }                                
                         }
                     }            
