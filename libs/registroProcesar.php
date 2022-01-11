@@ -59,6 +59,30 @@
             $error = TRUE;
         }
 
+        /* No pueden haber 2 usuarios con el mismo nick por lo que debemos hacer una query y verificar que ese usuario no existe para poder continuar con el registro */
+        try {
+            include ('bConecta.php');  //CAMBIAR
+        
+            /* Necesitamos saber la Id del usuario. Para ello hacemos la siguiente consulta */
+            $nickUsuario = "SELECT user  
+                           FROM usuarios 
+                           WHERE user=:usuario";
+            $result = $pdo->prepare($nickUsuario);
+            $result->execute(array(":usuario" => $usuario));   
+            $test = $result -> rowCount();      
+        
+            if ($test) {
+                $error = TRUE;
+                $errores['usuarioNick'] = "El nombre de usuario ya está registrado, prueba otro diferente.";
+            }
+        }   catch (PDOException $e) {
+            // En este caso guardamos los errores en un archivo de errores log
+            error_log($e->getMessage() . "##Código: " . $e->getCode() . "  " . microtime() . PHP_EOL, 3, "../logBD.txt");
+        } 
+
+
+
+
         // Si no hay ningún error pasamos a procesar la imagen del usuario. Si hay algún error, volvemos a pedir el formulario        
         if (! $error) {
             //Necesitamos la extensión de la foto que ha subido el usuario
@@ -320,14 +344,16 @@
             header('Location: ../index.php?registro=ok');
         } else {
             /* Recogemos los mensajes del array $errores y los guardamos en variables para enviarlos por el método get. En la página errorRegistro.php recogeremos los valores del array $errores enviado por $_GET  */
+            
             $errorNombre = $errores["nombre"];
             $errorApellidos = $errores["apellidos"];
             $errorUsuario = $errores["usuario"];
+            $errorUsuarioNick = $errores["usuarioNick"];
             $errorContrasena = $errores["contrasena"];
             $errorFechaNacimiento = $errores["fechaNacimiento"];
             $errorAficiones = $errores["aficiones"];
             
-            header('Location: ../pages/errorRegistro.php?errores[]='.$errorNombre.'&errores[]='.$errorApellidos.'&errores[]='.$errorUsuario.'&errores[]='.$errorContrasena.'&errores[]='.$errorFechaNacimiento.'&errores[]='.$errorAficiones);
+            header('Location: ../pages/registro.php?errores[]='.$errorNombre.'&errores[]='.$errorApellidos.'&errores[]='.$errorUsuario.'&errores[]='.$errorUsuarioNick.'&errores[]='.$errorContrasena.'&errores[]='.$errorFechaNacimiento.'&errores[]='.$errorAficiones);
         }
     }  
 ?>
