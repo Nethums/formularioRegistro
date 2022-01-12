@@ -98,6 +98,10 @@
                 $fPerfil = $directorioFotosPerfil . $usuario . ".jpg";
             }            
 
+            /* Preparamos la fecha para introducirla de forma correcta en la base de datos */
+            $fechaBD = preg_split("/[\/-]/", $fechaNacimiento);
+            $fechaIntroducirBD = $fechaBD[2] . "/" . $fechaBD[1] . "/" . $fechaBD[0];
+
             /* Conectamos con la base de datos e introducimos el nuevo usuario en la base de datos */
             try {
                 include ('../libs/bConecta.php');
@@ -111,7 +115,7 @@
                 $stmt->bindParam(4, $apellidos);
                 $stmt->bindParam(5, $localidad);
                 $stmt->bindParam(6, $provincia);
-                $stmt->bindParam(7, $fecha);
+                $stmt->bindParam(7, $fechaIntroducirBD);
                 $stmt->bindParam(8, $biografia);
                 $stmt->bindParam(9, $fPerfil);
 

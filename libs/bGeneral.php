@@ -220,28 +220,33 @@ function cTextarea(string $text, string $campo, array &$errores, int $max = 300,
     return FALSE;
 }
 
-/*  */
+/* Función que comprueba la imagen que sube el usuario */
 function cSubirImagenesUsuario(string $campo, array $extensionesValidas, array &$errores) {
     
+    $valido = FALSE;
+
     if ($_FILES[$campo]['error'] != 0) {
         $errores[$campo] = "No se ha podido subir el fichero. Inténtalo de nuevo.";
-        return FALSE;     
+        $valido = FALSE;    
     } else {
-        return TRUE;
+        $valido = TRUE;
     }
-    // Guardamos el nombre original del fichero
-    $nombreArchivo = $_FILES[$campo]['name'];
-    // Guardamos nombre del fichero en el servidor
-    $directorioTemp = $_FILES[$campo]['tmp_name'];
+    
     $extension = $_FILES[$campo]['type'];
     
     // Comprobamos la extensión del archivo dentro de la lista que hemos definido al principio
     if (! in_array($extension, $extensionesValidas)) {
-        $errores[] = "La extensión del archivo no es válida o no se ha subido ningún archivo";
-        return FALSE;
+        $errores[] = "La extensión del archivo no es válida.";
+        $valido = FALSE;
     }  else {
-        return TRUE;
+        $valido = TRUE;
     }
+
+    if($valido) {
+        return TRUE;
+    } else {
+        return FALSE;
+    } 
 }
 
 

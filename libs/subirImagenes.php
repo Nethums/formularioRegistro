@@ -25,7 +25,6 @@
         if (! cSubirImagenesUsuario("fotoUsuario", $extensionesValidas, $errores)) {
             $error = TRUE;
         }
-
         
 
         if(!$error) {

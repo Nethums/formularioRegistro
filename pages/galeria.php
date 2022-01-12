@@ -107,7 +107,8 @@
                     echo "</div>";
                 }
                 echo "</div>"; //Cerramos div class galeria
-            ?>        
+            ?>       
+            <a href='../index.php' class='galeria '>Cerrar sesión</a>
         </div>        
     </body>
 </html>
